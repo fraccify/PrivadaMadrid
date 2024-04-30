@@ -605,7 +605,7 @@ th, td {
 }
 
 .tablaporcada{
-  width: 100%;
+  width: 310px;
 }
 
 .fila-roja {
@@ -665,7 +665,7 @@ th, td {
 }
 
 .calle-registros{
-  width: 380px;
+  width: 310px;
   position: center;
   overflow: hidden;
   left: 50%; /* Establece el 50% del ancho del viewport */
