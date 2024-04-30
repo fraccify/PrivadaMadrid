@@ -1331,11 +1331,8 @@ function cerrarAdminPanel() {
     adminPanel.style.padding = "0px";
 }
 
-function onClick(e) {
-    e.preventDefault();
-    grecaptcha.enterprise.ready(async () => {
-      const token = await grecaptcha.enterprise.execute('6LdCILYpAAAAADl_Sm8WVoZTzGfv8RS_TiLLspJf', {action: 'formulario'});
-    });
+function onSubmit(token) {
+    document.getElementById("demo-form").submit();
 }
 
 document.getElementById("inicarsesionadmin").addEventListener("click", () => {
