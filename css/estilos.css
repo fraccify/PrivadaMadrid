@@ -605,7 +605,13 @@ th, td {
 }
 
 .tablaporcada{
-  width: 310px;
+  width: 280px;
+  color: black
+}
+
+.tablaporcada2{
+  width: 280px;
+  color: black
 }
 
 .fila-roja {
@@ -702,7 +708,17 @@ th, td {
 }
 
 .calle-box{
-  border: none; 
+  cursor: pointer;
+  outline: none; /* Elimina el contorno predeterminado en algunos navegadores */
+  background-color: #013E6A;
+  width: 380px;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  font-size: 14px;
+  align-items: center;
+  padding: 5px; 
+  margin-bottom: 10px; /* Agrega margen inferior de 10px entre los elementos */
 }
 
 
