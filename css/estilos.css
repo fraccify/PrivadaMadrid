@@ -1,0 +1,889 @@
+:root {
+	--primario: #013E6A;
+	--secundario: #000;
+}
+
+body {
+    background: #fff;
+    font-family: 'Quicksand', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.contenedor {
+    width: 300px;
+    max-width: 800px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    min-height: 10vh;
+    display: grid;
+    margin-right: 30px; /* Agregar margen */
+    margin-left: 30px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 150px) {
+    .contenedor {
+        max-width: 50%;
+    }
+}
+
+.columna-izquierda {
+    padding: 5px;
+    min-height: 10vh;
+}
+.row {
+	display: flex;
+	/*justify-content: space-between;*/
+	justify-content: flex-start;
+	/*align-items: flex-start;*/
+	align-items: center;
+
+}
+.row h1,
+.row p,
+.row span {
+    margin: 0 auto;
+}
+
+.titulo {
+    color: #0178d2;
+}
+.columna-izquierda2,
+.columna-derecha2 {
+	width: 60%; /* Ajusta el ancho según tus necesidades */
+}
+.columna-izquierda2 img {
+	max-width: 90%; /* Asegura que la imagen no sobrepase su contenedor */
+	height: auto;
+}
+
+.contenedor-input {
+	position: relative;
+  margin-bottom: 0px;
+
+}
+
+.header {
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    color: #013E6A;
+}
+
+.header p {
+    color: #000;
+}
+
+label {
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #000;
+    font-size: 14px;
+}
+
+
+.input {
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px 0 45px;
+    margin-bottom: 20px;
+    background: #f3f3f3eb;
+    color: #013E6A;
+    font-family: 'Quicksand', sans-serif;
+    border: 2px solid transparent;
+    transition: .3s ease all;
+}
+
+input:focus {
+    outline: none;
+    border: rgba(23, 158, 221, 0.3);
+}
+
+.contenedor-input svg {
+    position: absolute;
+    color: #013E6A;
+    top: 17px;
+    left: 17px;
+}
+
+
+button {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    border-radius: 8px;
+    margin-top: 20px;
+    background: #013e6a00;
+    height: 50px;
+    color: #013e6a;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: 2px solid #0178d2;
+    cursor: pointer;
+    transition: .3s ease all;
+    outline: none;
+    width: 231px;
+    border-radius: 20px;
+
+}
+
+button:hover {
+    background: rgb(37, 150, 190);
+    border: rgb(37, 150, 190);
+    color: #fff;
+}
+
+input:hover {
+  background: rgb(37, 150, 190);
+  border: rgb(37, 150, 190);
+  color: #fff;
+}
+
+select:hover {
+  background: rgb(37, 150, 190);
+  border: rgb(37, 150, 190);
+  color: #fff;
+}
+
+#divamenidades{
+  width: 350px;
+  max-width: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  min-height: 10vh;
+  display: grid;
+  margin: 5px; /* Agregar margen */ 
+}
+
+button svg {
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.columna-derecha img {
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.columna-derecha {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor2 {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    min-height: 10vh;
+    margin: 20px;
+}
+
+.form-select {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px;
+    color: #333;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition:
+}
+
+#status {
+	color: rgb(65, 113, 226); /* Color del texto */
+	font-weight: bold; /* Para hacer el texto más llamativo */
+}
+
+/* Estilos para el contenedor de botones */
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+}
+  
+  /* Estilos para los botones */
+  .btn {
+	width: 200px; /* Maintains the desired width */
+	height: 40px; /* Maintains the desired height */
+	min-width: 150px; /* Maintains the minimum width */
+	margin: 2px; /* Maintains the margin */
+	padding: 10px 20px; /* Maintains the padding for button comfort */
+	text-align: start; /* Aligns the text to the left */
+	border-radius: 5px; /* Maintains the border radius */
+	font-size: 13px; /* Reduces the font size to 12px */
+	font-weight: 500; /* Maintains the font weight */
+	transition: all 0.3s ease; /* Maintains the transition effect */
+	outline: none; /* Maintains the removal of outline */
+  border-radius: 20px;
+  }
+
+  .textbtn {
+	text-align: left; /* Aligns the text to the left */
+	font-size: 12px; /* Reduces the font size to 12px */
+  }
+  
+  table {
+	margin: 0;
+	border-collapse: separate;
+	text-align: left;
+  }
+
+  td {
+	padding: 5px;
+	font-size: 12px;
+  }
+
+  .contenedor-divs {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+  }
+  .contenedor-divs {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+	grid-template-rows: 1fr;
+  }
+  
+  .div-vertical {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	height: 100px;
+  }
+  
+  .div-vertical:nth-child(1) {
+	top: 0;
+  }
+  
+  .div-vertical:nth-child(2) {
+	top: 100px;
+  }
+  
+  .div-vertical:nth-child(3) {
+	top: 200px;
+  }
+  
+  .formulario2 {
+    width: 280px;
+	  display: flex; /* Activate flexbox for the form */
+	  flex-direction: column; /* Stack elements vertically */
+	  border: 35px;
+  }
+  
+  .contenedor-input, .contenedor-fecha {
+	margin-bottom: 10px; /* Optional spacing between elements */
+  }
+  
+
+  .contenedorx1-input {
+	width: calc(100vw - 40px); /* Ajusta el ancho según tu diseño */
+	margin: 0 auto;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: #fff;
+	border: 2px solid #013E6A; /* Azul claro */
+  }
+  
+  #tipo-visita {
+	font-size: 16px; /* Ajusta el tamaño de letra */
+	width: 100%;
+	padding: 5px 10px;
+	border: none;
+	border-radius: 4px;
+	outline: none;
+	font-family: 'Quicksand', sans-serif; /* Agrega la fuente Quicksand */
+  }
+
+  /* Estilos para el contenedor personalizado del selector */
+  .custom-select {
+    position: relative;
+}
+
+.custom-select .select-selected {
+    /* Estilos para el selector personalizado */
+    padding: 10px 15px; /* Ajusta el espaciado interno */
+    background-color: var(--primario); /* Color de fondo */
+    color: var(--secundario); /* Color del texto */
+    border: 2px solid var(--primario); /* Borde */
+    border-radius: 5px; /* Borde redondeado */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.custom-select .select-selected:hover {
+    /* Estilos al pasar el mouse sobre el selector personalizado */
+    background-color: var(--secundario); /* Cambia el color de fondo */
+    color: var(--primario); /* Cambia el color del texto */
+}
+
+.custom-select .select-items {
+    /* Estilos para el contenedor de opciones */
+    position: absolute; 
+    background-color: var(--primario); /* Color de fondo */
+    color: var(--secundario); /* Color del texto */
+    border: 2px solid var(--primario); /* Borde */
+    border-top: none; /* Elimina el borde superior */
+    border-radius: 0 0 5px 5px; /* Borde redondeado solo en la parte inferior */
+    z-index: 1; /* Asegura que las opciones aparezcan sobre otros elementos */
+    width: 90%; /* Ancho completo del contenedor */
+    display: none; /* Inicialmente oculto */
+    cursor: pointer; /* Cursor de puntero al pasar sobre las opciones */
+}
+
+.custom-select .select-items div {
+    /* Estilos para las opciones */
+    padding: 10px 15px; /* Ajusta el espaciado interno */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.custom-select .select-items div:hover {
+    /* Estilos al pasar el mouse sobre las opciones */
+    background-color: var(--secundario); /* Cambia el color de fondo */
+    color: var(--primario); /* Cambia el color del texto */
+}
+
+/* Estilos para el elemento select */
+select {
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 0 20px 0 45px;
+  margin-bottom: 20px;
+  background: #f3f3f3eb;
+  color: #013E6A;
+  font-family: 'Quicksand', sans-serif;
+  border: 2px solid transparent;
+  transition: .3s ease all;
+}
+
+/* Estilos al enfocar el elemento select */
+select:focus {
+    /* Borde */ 
+    /* Elimina el estilo de selección nativo */
+    outline: none;
+}
+
+* {
+  padding: 1px;
+  box-sizing: border-box;
+}
+
+#qrElement {
+  padding: 10px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+
+#tiutlo2 {
+  padding: 10px;
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+#divcalendario iframe {
+  width: 300px;
+  height: 1000px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  font-size: 1px;
+  text-align: center;
+
+}
+
+
+.registro-item {
+  border: 1px solid #013E6A; /* Marco de 1px de grosor y color gris claro */
+  padding: 10px; /* Espaciado interior de 10px */
+  font-size: 12px; /* Tamaño de fuente de 12px */
+  margin-bottom: 10px; /* Margen inferior de 10px */
+  border-radius: 8px; /* Esquinas ligeramente ovaladas */
+}
+
+.registro-item {
+  border: 1px solid #013E6A; /* Marco de 1px de grosor y color gris claro */
+  padding: 10px; /* Espaciado interior de 10px */
+  font-size: 12px; /* Tamaño de fuente de 12px */
+  margin-bottom: 10px; /* Margen inferior de 10px */
+  border-radius: 8px; /* Esquinas ligeramente ovaladas */
+}
+
+.btn2 {
+	width: 200px; /* Maintains the desired width */
+	height: 70px; /* Maintains the desired height */
+	min-width: 150px; /* Maintains the minimum width */
+	margin: 2px; /* Maintains the margin */
+	padding: 10px 20px; /* Maintains the padding for button comfort */
+	text-align: start; /* Aligns the text to the left */
+	border-radius: 5px; /* Maintains the border radius */
+	font-size: 13px; /* Reduces the font size to 12px */
+	font-weight: 500; /* Maintains the font weight */
+	transition: all 0.3s ease; /* Maintains the transition effect */
+	outline: none; /* Maintains the removal of outline */
+  }
+
+.dropdown-title{
+  color: rgb(37, 150, 190);
+  padding: 10px 15px
+  }
+  #loader {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding-top: 20%;
+}
+
+#loader img {
+    width: 100px;
+}
+
+.buttonrecibos{
+  width: 90px;
+  white-space: nowrap;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  border-radius: 5px;
+  margin-top: 20px;
+  height: 16px;
+  color: #013E6A;
+  background: #013e6a00;
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid #013E6A;
+  cursor: pointer;
+  transition: .3s ease all;
+  outline: none;
+  flex-direction: column-reverse;
+  justify-content: space-around;
+}
+
+.table-custom td {
+  border: 0px solid #ffffff00;
+  text-align: center; /* Esto alineará el contenido horizontalmente */
+  vertical-align: bottom; /* Esto alineará el contenido verticalmente hacia abajo */
+  padding: 8px; /* Ajusta el padding según sea necesario */
+}
+
+.contenedorhome {
+  width: 370px;
+  max-width: 370px;
+  max-height: 90%;
+  border-radius: 10px 10px 10px 10px;
+  position: center;
+  overflow: hidden;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  background: #fff;
+  min-height: 10vh;
+  display: grid;
+  margin: 10px; /* Agregar margen */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  bottom: 0;
+}
+
+#adminPanel {
+  width: 370px;
+  max-width: 370px;
+  max-height: 90%;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, rgb(255, 255, 255) 55%, #013E6A); /* Degradado de arriba hacia abajo */
+  border-radius: 10px 10px 10px 10px;
+  position: absolute;
+  bottom: 0;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  transform: translateX(-50%); /* Centra el panel horizontalmente */
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease-in-out, padding 0.5s ease-in-out;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+.contenedorformulariovisita{
+  color: rgb(37, 150, 190);
+  padding: 0px 25px;
+}
+
+
+
+
+
+
+.estatus {
+  width: 60px;
+  height: 18px;
+  line-height: 14px;
+  font-size: 10px;
+  border: none;
+  border-radius: 5px;
+  padding: 0px 0px 0 0;
+  margin-bottom: 0px;
+  background: #f4f8f7;
+  color: #013E6A;
+}
+
+/* Estilo base para la tabla */
+#tablapropietarios {
+  width: 370px;
+  max-width: 370px;
+  max-height: 90%;
+  border-radius: 10px 10px 10px 10px;
+  position: center;
+  overflow: hidden;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  background: #fff;
+  min-height: 10vh;
+  display: grid;
+  margin: 10px; /* Agregar margen */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  bottom: 0;
+}
+
+.tablapropietarios th, .tablapropietarios td {
+  padding: 8px; /* Espaciado interno */
+}
+
+/* Estilo para la fila de detalle */
+.detalle {
+  display: none; /* Ocultar por defecto */
+}
+
+/* Estilo para las filas de detalle cuando están abiertas */
+.detalle.abierto {
+  display: table-row; /* Mostrar como fila de tabla */
+}
+
+
+/* Estilos para las filas de las tablas más pequeñas */
+
+/* Estilos para las celdas */
+th, td {
+  border: 1px solid #ffffff;
+  text-align: left;
+  padding: 8px;
+}
+
+.tablaporcada{
+  width: 100%;
+}
+
+.fila-roja {
+  color: red;
+  width: 100%;  
+  font-weight: bold; /* Agregar negrita */
+  background: rgba(255, 0, 0, 0.232);
+}
+
+.fila-roja2 {
+  color: red;
+  width: 100%;  
+  font-weight: bold; /* Agregar negrita */
+  content: "\f06a"; /* Código Unicode del icono de alerta */
+  margin-right: 5px; /* Espacio entre el icono y el texto */
+}
+
+.pago{
+  height: 20px;
+  line-height: 0px;
+  font-size: 12px;
+  border-radius: 0px;
+  padding: 0px 0px 0px 0px;
+  margin-bottom: 0px;
+  background: #013e6a22;
+  color: #000000;
+  width: 100%;
+  border: none; 
+}
+
+
+.datostext {
+  height: 20px;
+  line-height: 0px;
+  font-size: 12px;
+  border-radius: 0px;
+  padding: 0px 0px 0px 0px;
+  margin-bottom: 0px;
+  background: #013e6a22;
+  color: #000000;
+  width: 100%;
+  border: none; 
+
+}
+
+.identificadormora{
+  height: 20px;
+  line-height: 0px;
+  font-size: 12px;
+  border-radius: 0px;
+  padding: 0px 0px 0px 0px;
+  margin-bottom: 0px;
+  background: #013e6a22;
+  color: #000000;
+  width: 100%;
+  border: none; 
+}
+
+.calle-registros{
+  width: 380px;
+  position: center;
+  overflow: hidden;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  background: #fff;
+  display: grid;
+  margin: 15px; /* Agregar margen */
+  overflow: hidden;
+  bottom: 0;
+  border: none; 
+}
+
+.calle-registros tr:nth-child(even) {
+  background-color: #ededed;
+}
+
+.calle-registros tr:nth-child(odd) {
+  background-color: rgba(53, 98, 130, 0.2);
+}
+
+.tablacompleta{
+  width: 400px;
+  max-height: 100%;
+  border-radius: 10px 10px 10px 10px;
+  position: center;
+  overflow: hidden;
+  left: 10%; /* Establece el 50% del ancho del viewport */
+  background: #fff;
+  min-height: 10vh;
+  display: grid;
+  padding: 0px 0px 0px 2px;
+  margin: 5px; /* Agregar margen */
+  overflow: hidden;
+  bottom: 0;
+}
+
+.calle-box{
+  border: none; 
+}
+
+
+/* Estilo para el icono de abrir */
+summary::before {
+  content: "\002B" !important; /* Código Unicode para el signo de más (+) */
+  display: inline-block;
+  margin-right: 0.5em; /* Espacio entre el icono y el texto */
+  color: #013E6A;
+}
+
+/* Estilo para el icono de cerrar */
+details[open] > summary::before {
+  content: "\2212" !important; /* Código Unicode para el signo de menos (-) */
+  color: #013E6A;
+}
+
+summary {
+  list-style: none;
+}
+
+/* Restablece el margen izquierdo para el contenido del resumen */
+summary::before {
+  margin-left: 0;
+}
+
+
+#adminPanel2 {
+  width: 370px;
+  max-width: 370px;
+  height: 700px;
+  max-height: 100%;
+  background: linear-gradient(to bottom, rgb(255, 255, 255) 75%, #013E6A); /* Degradado de arriba hacia abajo */
+  border-radius: 10px 10px 10px 10px;
+  position: absolute;
+  bottom: 0;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  transform: translateX(-50%); /* Centra el panel horizontalmente */
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease-in-out, padding 0.5s ease-in-out;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+#encabezadoadmin{
+  display: flex;
+  flex-direction: column;
+}
+
+.boton-eliminar {
+  background-color: transparent;
+  color: red;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+  margin-top: 0px; /* Ajusta el margen superior según sea necesario */
+  height: 15px;
+}
+
+.boton-eliminar:hover {
+  background-color: transparent;
+  color: red;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+  margin-top: 0px; /* Ajusta el margen superior según sea necesario */
+  height: 15px;
+
+}
+
+.boton-eliminar:hover {
+  text-decoration: none;
+}
+
+
+.avisodeprivacidad{
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.tituloavdp {
+  margin-top: 0;
+  text-align: center;
+  color: #0178d2;
+}
+
+.contenedoradmin{
+  width: 420px;
+  max-width: 95%;
+  max-height: 90%;
+  border-radius: 10px 10px 10px 10px;
+  position: center;
+  overflow: hidden;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  background: #fff;
+  min-height: 10vh;
+  display: grid;
+  margin: 10px; /* Agregar margen */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  bottom: 0;
+}
+
+.tituloavisos{
+  color:  #0178d2;
+}
+
+#mespago {
+  height: 280px;
+  max-height: 280px;
+  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+}
+
+#mespago:hover {
+  max-height: 280px;
+  background-color: rgba(255, 0, 0, 0);
+  color: black;
+}
+
+.option-seleccionada {
+  color: red;
+}
+
+.encabezado {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.encabezado img {
+	max-width: 40%; /* Asegura que la imagen no sobrepase su contenedor */
+	height: auto;
+}
+
+/* Estilo base para el summary dentro de un .calle-boxss */
+.calle-boxss summary {
+  cursor: pointer;
+  outline: none; /* Elimina el contorno predeterminado en algunos navegadores */
+  background-color: #013E6A;
+  width: 380px;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  padding: 10px;
+}
+
+
+.registro-itemss {
+  color: black;
+  border: 1px solid #013E6A; /* Marco de 1px de grosor y color gris claro */
+  padding: 5px; /* Espaciado interior de 10px */
+  font-size: 12px; /* Tamaño de fuente de 12px */
+  margin-bottom: 10px; /* Margen inferior de 10px */
+  border-radius: 8px; /* Esquinas ligeramente ovaladas */
+  width: 350px;
+}
+
+.calle-registrosss{
+  width: 100%;
+  position: center;
+  overflow: hidden;
+  left: 40%; /* Establece el 50% del ancho del viewport */
+  background: #fff;
+  overflow: hidden;
+  bottom: 0;
+  border: none; 
+  padding: 10px;
+  font-size: 12px;
+}
+
+.header2{
+  margin-bottom: 40px;
+  text-align: center; /* Centra el texto horizontalmente */
+}

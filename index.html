@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">  
+	<link rel="stylesheet" href="css/estilos.css">
+	<title>Inicio de sesión Privada Madrid</title>
+</head>
+<body>
+	<div id="homepage">
+		<div class="contenedorhome">
+			<div class="columna-izquierda">
+				<div class="registro activo" id="registro">
+					<div class="row">
+						<div class="header">
+							<h2 class="titulo">Privada Madrid</h2>
+							<p>Inicio de sesión</p>
+							<p>Residentes</p>
+						</div>
+						<div class="columna-izquierda2">
+							<img src="Fraccify.png" alt="Descripción de la imagen">
+						</div>
+					</div>
+					<form class="formulario" id="formulario">
+						<label for="username">Usuario</label>
+						<div class="contenedor-input">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+							</svg>
+							<input class="input" type="text" id="username" name="username" placeholder="Correo electrónico" autocomplete="username">
+						</div>
+						<label for="contraseña">Contraseña</label>
+						<div class="contenedor-input">
+						<input class="input" type="password" id="contrasena" name="password" placeholder="*********" autocomplete="current-password">
+							<span class="toggle-password" onclick="togglePasswordVisibility()">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16" style="display: bloc;" id="ojoabierto">
+									<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+									<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+								</svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16" style="display: none;" id="ojocerrado">
+									<path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+									<path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+									<path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+								</svg>   
+							</span>
+						</div>
+						<div class="aviso-privacidad">
+							<input type="checkbox" id="avisoPrivacidad" name="avisoPrivacidad">
+							<label for="avisoPrivacidad">He leído y acepto el <a href="avisodeprivacidad.html">aviso de privacidad</a> y los <a href="terminosycondiciones.html">terminos y condiciones</a></label>
+						</div>
+						
+						<div class="g-recaptcha" data-sitekey="TU_SITE_KEY"></div>
+						<div class="contenedor-boton">
+							<button id="iniciarresidente" type="submit">Iniciar sesión</button>
+						</div>
+					</form>
+					<div class="toggle-container">
+						<div class="toggle">
+							<div class="toggle-panel toggle-left" id="adminPanel">
+								<div class="row">
+									<div class="header">
+										<h2 class="titulo">Bienvenido administrador</h2>
+										<p>Inicio de sesión</p>
+										<p> </p>
+									</div>
+									<div class="columna-izquierda2">
+										<img src="Fraccify.png" alt="Descripción de la imagen">
+									</div>
+								</div>
+								<label for="admin-username">Usuario</label>
+								<div class="contenedor-input">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+										<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+										<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+									</svg>
+									<input class="input" type="text" id="admin-username" name="admin-username" placeholder="Correo electrónico" autocomplete="username">
+								</div>
+								<label for="admin-contraseña">Contraseña</label>
+								<div class="contenedor-input">
+									<input class="input" type="password" id="admin-contrasena" name="admin-password" placeholder="*********" autocomplete="current-password">
+									<span class="toggle-password2" onclick="togglePasswordVisibilityadmin()">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16" style="display: bloc;" id="ojoabiertoadmin">
+											<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+											<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+										</svg>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16" style="display: none;" id="ojocerradoadmin">
+											<path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+											<path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+											<path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+										  </svg>    
+									</span>
+								</div>
+								<button class="" id="inicarsesionadmin">Iniciar sesión</button>
+								<button id="" onclick="cerrarAdminPanel()">Soy Residente</button>
+							</div>
+						</div>
+							<button id="" onclick="expandAdminPanel()">Soy administrador</button>
+						</div>
+					</div>                    
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="contenedorhome" id="inicio" style="display: none;">
+		<div id="iniciodatos" class="contenedor">
+			<div class="encabezado">
+				<img src="Fraccify.png" alt="Descripción de la imagen">
+			</div>
+		</div>
+
+		<div id="tags" style="display: none;">
+			<div class="contenedor">
+				<div>
+					<p class="titulo">¡Bienvenido(a)</p>
+					<p><span id="propietario"></span></p>
+					<p><span id="domicilio"></span></p>
+					<p><span style="display: none;" id="correo"></span></p>	
+					<p>Estatus:  <span id="status"></span></p>	
+				</div>
+			</div>
+		</div>
+		<div id="paymentHistory2024" class="contenedorpagos"style="display: none;">
+			<div>
+				<details id="2024" class="dropdown">
+					<summary class="dropdown-title">Pagos 2024</summary>					
+					<table id="tablaPagos" class="table-custom table-custom-highlight">
+						<tr>
+							<!-- Enero 2024 -->
+							<tr>
+								<td>Enero</td>
+								<td><span id="ene2024"></span></td>
+								<td><button id="btnreciboene2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Febrero 2024 -->
+							<tr>
+								<td>Febrero</td>
+								<td><span id="feb2024"></span></td>
+								<td><button id="btnrecibofeb2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Marzo 2024 -->
+							<tr>
+								<td>Marzo</td>
+								<td><span id="mar2024"></span></td>
+								<td><button id="btnrecibomar2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Abril 2024 -->
+							<tr>
+								<td>Abril</td>
+								<td><span id="abr2024"></span></td>
+								<td><button id="btnreciboabr2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Mayo 2024 -->
+							<tr>
+								<td>Mayo</td>
+								<td><span id="may2024"></span></td>
+								<td><button id="btnrecibomay2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Junio 2024 -->
+							<tr>
+								<td>Junio</td>
+								<td><span id="jun2024"></span></td>
+								<td><button id="btnrecibojun2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Julio 2024 -->
+							<tr>
+								<td>Julio</td>
+								<td><span id="jul2024"></span></td>
+								<td><button id="btnrecibojul2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Agosto 2024 -->
+							<tr>
+								<td>Agosto</td>
+								<td><span id="ago2024"></span></td>
+								<td><button id="btnreciboago2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Septiembre 2024 -->
+							<tr>
+								<td>Septiembre</td>
+								<td><span id="sep2024"></span></td>
+								<td><button id="btnrecibosep2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Octubre 2024 -->
+							<tr>
+								<td>Octubre</td>
+								<td><span id="oct2024"></span></td>
+								<td><button id="btnrecibooct2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Noviembre 2024 -->
+							<tr>
+								<td>Noviembre</td>
+								<td><span id="nov2024"></span></td>
+								<td><button id="btnrecibonov2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Diciembre 2024 -->
+							<tr>
+								<td>Diciembre</td>
+								<td><span id="dic2024"></span></td>
+								<td><button id="btnrecibodic2024" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+					</table>
+				</details>
+				<details id="2023" class="dropdown">
+					<summary class="dropdown-title">Pagos 2023</summary>
+					<table class="table-custom table-custom-highlight">
+							<!-- Enero 2024 -->
+							<tr>
+								<td>Enero</td>
+								<td><span id="ene2023"></span></td>
+								<td><button id="btnreciboene2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Febrero 2024 -->
+							<tr>
+								<td>Febrero</td>
+								<td><span id="feb2023"></span></td>
+								<td><button id="btnrecibofeb2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Marzo 2024 -->
+							<tr>
+								<td>Marzo</td>
+								<td><span id="mar2023"></span></td>
+								<td><button id="btnrecibomar2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Abril 2024 -->
+							<tr>
+								<td>Abril</td>
+								<td><span id="abr2023"></span></td>
+								<td><button id="btnreciboabr2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Mayo 2024 -->
+							<tr>
+								<td>Mayo</td>
+								<td><span id="may2023"></span></td>
+								<td><button id="btnrecibomay2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Junio 2024 -->
+							<tr>
+								<td>Junio</td>
+								<td><span id="jun2023"></span></td>
+								<td><button id="btnrecibojun2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Julio 2024 -->
+							<tr>
+								<td>Julio</td>
+								<td><span id="jul2023"></span></td>
+								<td><button id="btnrecibojul2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Agosto 2024 -->
+							<tr>
+								<td>Agosto</td>
+								<td><span id="ago2023"></span></td>
+								<td><button id="btnreciboago2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Septiembre 2024 -->
+							<tr>
+								<td>Septiembre</td>
+								<td><span id="sep2023"></span></td>
+								<td><button id="btnrecibosep2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Octubre 2024 -->
+							<tr>
+								<td>Octubre</td>
+								<td><span id="oct2023"></span></td>
+								<td><button id="btnrecibooct2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Noviembre 2024 -->
+							<tr>
+								<td>Noviembre</td>
+								<td><span id="nov2023"></span></td>
+								<td><button id="btnrecibonov2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+							<!-- Diciembre 2024 -->
+							<tr>
+								<td>Diciembre</td>
+								<td><span id="dic2023"></span></td>
+								<td><button id="btnrecibodic2023" class="buttonrecibos">Descargar recibo</button></td>
+							</tr>
+					</table>
+				</details>
+			</div>
+		</div>
+		<div clas="contenedorformulario" id="divingresos" style="display: none;">
+			<div>
+				<div class="contenedorformulariovisita">
+					<form class="formulario2" id="formulario2">
+						<div class="contenedor-input">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+							</svg>
+							
+							<input class="input" type="text" id="namevisita" placeholder="Nombre de visita o proveedor" oninput="removeSpecialCharacters(this)" required>
+							
+						</div>
+						<div class="contenedor-fecha">
+							<input class="input" type="date" id="fechavisita" placeholder="Ingresa fecha" required>  
+							<select id="tipo" required>
+								<option value="">Selecciona el tipo de visita...</option>
+								<option value="familiar-amigo">Familiar o Amigo</option>
+								<option value="proveedor">Proveedor</option>
+							</select>
+						</div>
+						<div>
+							<div id="btnenviaringreso">
+								<button type="button" onclick="" class="btn">Enviar</button>
+							</div>
+						</div>	
+					</form>
+				</div>	
+				<div id="confirmacion" style="display: none;">
+					<div class="contenedor">
+						<p>Por favor confirma la información:</p>
+						<p></p>
+						<p></p>
+						<p class="titulo">Nombre:<p1></p1>
+						<span id="namevisita2"></span>
+						<p></p>
+						<p class="titulo">Fecha:<p1></p1>
+						<span id="fechavisita2"></span>
+						<p></p>
+						<p class="titulo">Tipo:<p1></p1>
+						<span id="tipo2"></span>
+						<p></p>
+						<p></p>
+						<p></p>
+						<div id="datoscorrectosvisitas">
+							<button id="generarvisitayqr" type="button" onclick="" class="btn">Confirmar</button>
+						</div>
+						<div id="btnenborrar">
+							<button type="button" id="borrardatos" onclick="" class="btn">Borrar</button>
+						</div>						
+					</div>
+				</div>
+				<div id="divqr" style="display: none;">	
+					<div id="qrElement">
+						<p class="">Comparte este QR con: </p>
+							<p> </p>
+							<span class="titulo" id="namevisita3"></span>
+							<p> </p>
+							<span class="titulo" id="tipo3"></span>
+							<p> </p>
+							<span class="titulo" id="fechavisita3"></span>
+							<p> </p>
+							<span class="titulo" id="domdvisista"></span>
+							<p></p>
+							<p></p>
+							<p></p>
+					</div>	
+				</div>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
+			</div>
+		</div>
+		<div id="divamenidades" class="divamenidades" style="display: none;">
+			<div class="formulario2">	
+				<details id="divcalendario" class="dropdown">
+					<summary onclick="toggleCalendar()" class="dropdown-title">Mostrar Calendario</summary>
+					<ul id="contenedorCalendario" class="dropdown-content">
+						<li>
+						</li>
+					</ul>
+				</details>			
+				<details id="divreservar" class="dropdown">
+					<summary class="dropdown-title">Realizar reservación</summary>
+					<div class="dropdown-content">
+						<div class="contenedorformulario">
+							<div class="contenedor">
+								<label for="fechadereserva">Seleccionar fecha:</label>
+								<input class="input" type="date" id="fechareserva" placeholder="Ingresa fecha" required></input>
+								<label for="horaInicio">Hora de inicio:</label>
+								<input class="input" type="time" id="horaInicio" name="horaInicio" required>
+								<label for="horaFin">Hora de fin:</label>
+								<input class="input" type="time" id="horaFin" name="horaFin" required>
+								<select id="tiporeserva" required>
+									<option value="">Tipo de reservación</option>
+									<option value="Casa Club">Casa Club</option>
+									<option value="Asador">Asador</option>
+									<option value="Alberca">Alberca</option>
+								</select>
+								<div class="btnreservar" id="confirmarreserca" >	
+									<button type="submit" id="btnparaconfirmarreserca" class="btn">
+										Enviar solicitud
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</details>					
+				<details id="misreservsas" class="dropdown">
+					<summary class="dropdown-title">Mis Reservaciones</summary>
+					<div class="dropdown-content" id="divmisreservas">
+					</div>
+				</details>
+			</div>	
+		</div>
+		<div id="divpagos" style="display: none;" class="contenedor">
+			<p class="titulo">Datos Bancarios</p>
+			<p>Banco: SANTANDER</p>
+			<p>Titular: COLONOS SAN SEBASTIAN, A.C.</p>
+			<p>Cuenta: 65509378739</p>
+			<p>CLABE: 014308655093787392</p>
+			<p>Monto: $550.00 M.N.</p>
+			<p> </p>
+			<p> </p>
+			<p class="titulo">Adjunta tu pago<p>
+			<input class="input" type="file" id="archivo" accept="application/pdf,image/*" onchange="procesarArchivo()">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+			<div id="pagocargado" style="display: none;">
+				<p class="titulo">Datos del Pago</p>
+				<div id="loader">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100" height="100">
+						<defs>
+						  <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+							<stop offset="0%" style="stop-color:#013E6A;stop-opacity:1" />
+							<stop offset="100%" style="stop-color:#013E6A;stop-opacity:1" />
+						  </linearGradient>
+						</defs>
+						<path fill="url(#grad)" d="M5 12h14M8 16l3-3-3-3" />
+						<animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
+					  </svg>
+				</div>
+				<div>
+					<p>Fecha: <span id="fechaPago"></span></p>
+					<p>Monto: <span id="montoPago"></span></p>
+					<p>Beneficiario:<span id="beneficiarioPago"></span></p>
+					<p>Concepto del pago:<span id="conceptodelpago"></span></p>
+					<p>Clave de rastreo: <span id="clavederastreo"></span></p>
+					<p> </p>
+					<p> </p>
+				</div>
+				<label for="mespago" class="titulo">Seleccion el mes al que quieres que se aplique tu pago:</label><br>
+				<select id="mespago" required multiple size="10">
+					<option value="ene2024">Enero 2024</option>
+					<option value="feb2024">Febrero 2024</option>
+					<option value="mar2024">Marzo 2024</option>
+					<option value="abr2024">Abril 2024</option>
+					<option value="may2024">Mayo 2024</option>
+					<option value="jun2024">Junio 2024</option>
+					<option value="jul2024">Julio 2024</option>
+					<option value="ago2024">Agosto 2024</option>
+					<option value="sep2024">Septiembre 2024</option>
+					<option value="oct2024">Octubre 2024</option>
+					<option value="nov2024">Noviembre 2024</option>
+					<option value="dic2024">Diciembre 2024</option>
+				</select>								
+				<button type="submit" id="enviarpago" class="btn">Enviar Pago</button>
+			</div>
+		</div>
+		<div id="botones"  style="display: none;">	
+			<div class="contenedor2 button-container">
+				<div id="divbotonhistorico">	
+					<button type="submit" onclick="" class="btn">
+						Historico de Pagos
+				</div>
+				<div id="divbotonpago">	
+					<button type="submit" onclick="" class="btn">
+						Realizar pago
+					</button>
+				</div>
+				<div id="divbotonreservar">	
+					<button type="submit" onclick="" class="btn">
+						Reservar alberca, asadaor o casa club
+					</button>
+				</div>
+				<div id="divbotonvisitas">	
+					<button type="submit" onclick="" class="btn">
+						Visitas y proveedores
+					</button>
+				</div>
+				<div id="segurichat">    
+					<button type="submit" class="btn" onclick="window.location.href = 'https://wa.me/527713598364';">
+						Contacto Policia Municipal
+					</button>
+				</div>
+				<div id="divregreso" style="display: none;">	
+					<button type="submit" class="btn">
+						Regresar
+					</button>
+				</div>
+				<div id="cerrarsesion">	
+					<button type="submit" class="btn">
+						Cerrar Sesión
+					</button>
+				</div>
+			</div>
+			<div class="contenedor2 button-container">
+				<div id="nuevoregistro" style="display: none;">	
+					<button type="submit" class="btn" onclick="nuevoregistro()">
+						Nuevo registro
+					</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="contenedoradmin" id="contenedoradmin" style="display: none;">
+		<div>
+			<div id="encabezadoadmin">
+				<div id="cerrarsesionadmin">	
+					<button type="submit" class="btn">
+						Cerrar Sesión
+					</button>
+				</div>
+				<div id="agregarregistro">	
+					<button type="submit" onclick="expandAdminPanel2()" class="btn">
+						Agregar Registro
+					</button>
+				</div>
+			</div>
+			<div class="tablacompleta">
+
+				<div class="buscador">
+				</div>
+				<details class="calle-box" id="calle-alba">
+					<summary class="calle-title">Cto Juan Carlos</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="alba-registros">
+						<!-- Aquí se mostrarán los registros de la calle Alba -->
+					</div>
+				</details>
+				
+				<details class="calle-box" id="calle-caballeros">
+					<summary class="calle-title">Portales</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="caballeros-registros">
+						<!-- Aquí se mostrarán los registros de la calle Caballeros -->
+					</div>
+				</details>
+				
+				<details class="calle-box" id="calle-esmeralda">
+					<summary class="calle-title">Marmoles</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="esmeralda-registros">
+						<!-- Aquí se mostrarán los registros de la calle Esmeralda -->
+					</div>
+				</details>
+				
+				<details class="calle-box" id="calle-eros">
+					<summary class="calle-title">Gran Via</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="eros-registros">
+						<!-- Aquí se mostrarán los registros de la calle Eros -->
+					</div>
+				</details>
+				<!--
+				<details class="calle-box" id="calle-hierro">
+					<summary class="calle-title">aaaaaa</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="hierro-registros">
+					</div>
+				</details>
+				<details class="calle-box" id="calle-ibiza">
+					<summary class="calle-title">Ibiza</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="ibiza-registros">
+					</div>
+				</details>
+				-->  
+				<details class="calle-box" id="calle-magdalena">
+					<summary class="calle-title">Plaza Alta</summary>
+					<input type="text" id="busqueda-domicilio" placeholder="Buscar domicilio..." oninput="buscarDomicilio()">
+					<div class="calle-registros" id="magdalena-registros">
+					</div>
+				</details>      
+			</div>
+			<div>
+				<div class="toggle-container">
+					<div class="toggle">
+						<div class="toggle-panel toggle-left" id="adminPanel2">
+							<div class="row">
+								<div class="header">
+									<h2 class="titulo">Nuevo registro</h2>
+									<p>Ingresa los datos para el registro de nuevo residente</p>
+									<p> </p>
+								</div>
+								<div class="columna-izquierda2">
+									<img src="logomat-removebg-preview.png" alt="Descripción de la imagen">
+								</div>
+							</div>
+							<div class="contenedor-input">
+								<input class="input" type="text" id="new-name" placeholder="Nombre Residente" min="0">
+							</div>
+							<select id="new-calle" required>
+								<option value="">Selecciona calle</option>
+								<option value="Cto Juan Carlos">Cto Juan Carlos</option>
+								<option value="Portales">Portales</option>
+								<option value="Marmoles">Marmoles</option>
+								<option value="Gran Via">Gran Via</option>
+								<option value="Plaza Alta">Plaza Alta</option>
+								<!--<option value="HIERRO">HIERRO</option>
+								<option value="IBIZA">IBIZA</option>
+								<option value="MAGDALENA">MAGDALENA</option>-->
+							</select>
+							<div class="contenedor-input">
+								<input class="input" type="number" id="new-num" placeholder="Número de casa" min="0">
+							</div>
+							<div class="contenedor-input">
+								<input class="input" type="text" id="new-username" placeholder="Correo electrónico" >
+							</div>
+							<div class="contenedor-input">
+								<input class="input" type="text" id="new-contrasena" placeholder="Contraseña" >
+							</div>
+							<button class="" id="grabarnweregistro">Grabar información</button>
+							<button id="" onclick="cerrarAdminPanel2()">Regresar</button>
+						</div>
+					</div>
+				</div>  
+			</div>
+		</div>
+	</div>
+
+
+	<div id="seguridad" style="display: none;">
+
+		<div class="row">
+			<div class="header2">
+				<h2 class="titulo">Seguridad Privada Madrid</h2>
+			</div>
+			<div class="columna-izquierda2">
+				<img src="Seguridad.jpg" alt="Descripción de la imagen">
+			</div>
+		</div>
+		<div>
+			<details class="calle-boxss" id="calle-albass">
+				<summary class="calle-title">Cto Juan Carlos</summary>
+				<div class="calle-registrosss" id="alba-registrosss">
+					<!-- Aquí se mostrarán los registros de la calle Alba -->
+				</div>
+			</details>
+			
+			<details class="calle-boxss" id="calle-caballerosss">
+				<summary class="calle-title">Portales</summary>
+				<div class="calle-registrosss" id="caballeros-registrosss">
+					<!-- Aquí se mostrarán los registros de la calle Caballeros -->
+				</div>
+			</details>
+			
+			<details class="calle-boxss" id="calle-esmeraldass">
+				<summary class="calle-title">Marmoles</summary>
+				<div class="calle-registrosss" id="esmeralda-registrosss">
+					<!-- Aquí se mostrarán los registros de la calle Esmeralda -->
+				</div>
+			</details>
+			
+			<details class="calle-boxss" id="calle-erosss">
+				<summary class="calle-title">Gran via</summary>
+				<div class="calle-registrosss" id="eros-registrosss">
+					<!-- Aquí se mostrarán los registros de la calle Eros -->
+				</div>
+			</details>
+			<!-- 
+			<details class="calle-boxss" id="calle-hierross">
+				<summary class="calle-title">Plaza Alta</summary>
+				<div class="calle-registrosss" id="hierro-registrosss">
+				</div>
+			</details> 
+			<details class="calle-box" id="calle-ibizass">
+				<summary class="calle-title">Gran via</summary>
+				<div class="calle-registrosss" id="ibiza-registrosss">
+				</div>
+			</details>
+			--> 
+			<details class="calle-boxss" id="calle-magdalenass">
+				<summary class="calle-title">Plaza Alta</summary>
+				<div class="calle-registrosss" id="magdalena-registrosss">
+				</div>
+			</details>       
+			
+		</div>
+	</div>
+
+	<!-- v5 -->
+	<script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script src="https://www.google.com/recaptcha/enterprise.js?render=6LdCILYpAAAAADl_Sm8WVoZTzGfv8RS_TiLLspJf"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
+  
+
+
+
+  
+
+  
+
+
+
+  
