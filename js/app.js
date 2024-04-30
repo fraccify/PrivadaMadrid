@@ -1331,9 +1331,7 @@ function cerrarAdminPanel() {
     adminPanel.style.padding = "0px";
 }
 
-function onSubmit(token) {
-    document.getElementById("demo-form").submit();
-}
+
 
 document.getElementById("inicarsesionadmin").addEventListener("click", () => {
     const usuarioInput = document.getElementById("admin-username").value;
@@ -1755,4 +1753,5 @@ function eliminarRegistro(domcodificado){
         return null; // O maneja el error de alguna otra manera
     }
 }
+
 
