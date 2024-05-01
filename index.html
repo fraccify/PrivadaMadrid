@@ -582,11 +582,8 @@
 									<p> </p>
 								</div>
 								<div class="columna-izquierda2">
-									<img src="logomat-removebg-preview.png" alt="Descripción de la imagen">
+									<img src="Fraccify.png" alt="Descripción de la imagen">
 								</div>
-							</div>
-							<div class="contenedor-input">
-								<input class="input" type="text" id="new-name" placeholder="Nombre Residente" min="0">
 							</div>
 							<select id="new-calle" required>
 								<option value="">Selecciona calle</option>
@@ -603,10 +600,16 @@
 								<input class="input" type="number" id="new-num" placeholder="Número de casa" min="0">
 							</div>
 							<div class="contenedor-input">
+								<input class="input" type="text" id="new-name" placeholder="Nombre Residente" min="0">
+							</div>
+							<div class="contenedor-input">
 								<input class="input" type="text" id="new-username" placeholder="Correo electrónico" >
 							</div>
 							<div class="contenedor-input">
 								<input class="input" type="text" id="new-contrasena" placeholder="Contraseña" >
+							</div>
+							<div class="contenedor-input">
+								<input class="input" type="tel" id="new-cel" placeholder="Celular" minlength="10" maxlength="10" oninput="validarNumero(this)">
 							</div>
 							<button class="" id="grabarnweregistro">Grabar información</button>
 							<button id="" onclick="cerrarAdminPanel2()">Regresar</button>
@@ -689,8 +692,6 @@
 
 
   
-
-
   
 
   
