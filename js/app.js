@@ -1331,7 +1331,12 @@ function cerrarAdminPanel() {
     adminPanel.style.padding = "0px";
 }
 
-
+function onClick(e) {
+    e.preventDefault();
+    grecaptcha.enterprise.ready(async () => {
+      const token = await grecaptcha.enterprise.execute('6LdCILYpAAAAADl_Sm8WVoZTzGfv8RS_TiLLspJf', {action: 'formulario'});
+    });
+}
 
 document.getElementById("inicarsesionadmin").addEventListener("click", () => {
     const usuarioInput = document.getElementById("admin-username").value;
@@ -1410,7 +1415,7 @@ function generarTabla(contenedorId, data) {
 
             // Iterar sobre las filas de la calle actual
             filasPorCalle[calle].forEach(({ fila, index }) => {
-                const domcodificado = fila.dom
+                const domcodificado = fila.dom;
                 const domDecodificado = atob(fila.dom);
                 const domComillas = domDecodificado.replace(/"/g, '');
                 const clienteDecodificado = atob(fila.Cliente);
@@ -1421,13 +1426,16 @@ function generarTabla(contenedorId, data) {
                 const passwordComillas = passwordDecodificado.replace(/"/g, '');
                 const claseFila = fila.status === "Moroso" ? "fila-roja" : "tablaporcada";
                 const claseFila2 = fila.status === "Moroso" ? "fila-roja2" : "tablaporcada2";
+                const celular = fila.dom
+
 
                 tablaHTML += `<tr>`;
-                tablaHTML += `<td><details><summary class="${claseFila2}">${calle}</summary>`;    
+                tablaHTML += `<td><details><summary class="${claseFila}">${calle}</summary>`;    
                 tablaHTML += `<table class="${claseFila}" border="0">`;    
                 tablaHTML += '<tr>';
                 tablaHTML += `<tr><td>Residente</td><td><input class="datostext" type="text" value="${clienteComillas}" onchange="actualizarDato(this.value, 'Cliente', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Usuario</td><td><input class="datostext" type="text" value="${correoSinComillas}" onchange="actualizarDato(this.value, 'correo', '${domcodificado}')"></td></tr>`;
+                tablaHTML += `<tr><td>Celular</td><td><input class="datostext" type="tel" value="${celular}" onchange="actualizarDato(this.value, 'cel', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr><td>Contraseña</td><td><input class="datostext" type="text" value="${passwordComillas}" onchange="actualizarDato(this.value, 'password', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `<tr>
                                 <td>Estatus</td>
@@ -1577,8 +1585,9 @@ function agregarresidente () {
         const newname = document.getElementById("new-name").value;
         const newusarname = document.getElementById("new-username").value;
         const newcontrasena = document.getElementById("new-contrasena").value;
+        const newcel = document.getElementById("new-cel").value;
 
-        if (!newname || !newusarname || !newcontrasena || !newcalle || !newnum) {
+        if (!newname || !newusarname || !newcontrasena || !newcalle || !newnum || !newcel) {
             alert("Por favor, complete todos los campos.");
             setTimeout(() => {
                 clicActivograbarnweregistro = true;
@@ -1614,8 +1623,10 @@ function agregarresidente () {
                     dom: domcif,
                     correo: correocif,
                     password: passwordcif,
-                    status : "Al Corriente"
+                    status : "Al Corriente",
+                    cel: newcel,
                 };
+
                 const url = "https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios";
 
                 const opciones = {
@@ -1636,6 +1647,8 @@ function agregarresidente () {
                         document.getElementById("new-contrasena").value = "";
                         document.getElementById("new-calle").value = "";
                         document.getElementById("new-num").value = "";
+                        document.getElementById("new-cel").value = "";
+
 
                         setTimeout(() => {
                             clicActivograbarnweregistro = true;
@@ -1754,4 +1767,7 @@ function eliminarRegistro(domcodificado){
     }
 }
 
+function validarNumero(input) {
+    input.value = input.value.replace(/\D/g, ''); // Eliminar caracteres que no sean dígitos
+}
 
