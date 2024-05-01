@@ -1426,7 +1426,7 @@ function generarTabla(contenedorId, data) {
                 const passwordComillas = passwordDecodificado.replace(/"/g, '');
                 const claseFila = fila.status === "Moroso" ? "fila-roja" : "tablaporcada";
                 const claseFila2 = fila.status === "Moroso" ? "fila-roja2" : "tablaporcada2";
-                const celular = fila.dom
+                const celular = fila.cel
 
 
                 tablaHTML += `<tr>`;
