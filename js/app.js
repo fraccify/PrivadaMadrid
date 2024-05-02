@@ -1305,14 +1305,6 @@ function procesarImagen(datos) {
     });
 }
 
-
-// JavaScript para habilitar la selección de múltiples opciones con un solo clic
-document.getElementById("mespago").addEventListener("click", function(event) {
-    var target = event.target;
-    if (target.tagName === "OPTION") {
-        target.selected = !target.selected;
-    }
-});
   
 function removeSpecialCharacters(input) {
   // Reemplaza caracteres especiales y acentos con una expresión regular
