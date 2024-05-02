@@ -830,18 +830,6 @@ summary::before {
   color:  #0178d2;
 }
 
-#mespago {
-  height: 280px;
-  max-height: 280px;
-  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
-}
-
-#mespago:hover {
-  max-height: 280px;
-  background-color: rgba(255, 0, 0, 0);
-  color: black;
-}
-
 .option-seleccionada {
   color: red;
 }
