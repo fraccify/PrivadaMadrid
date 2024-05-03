@@ -211,15 +211,12 @@ formulario.addEventListener("submit", (e) => {
 
                 if (aceptoAvisoPrivacidad2) {
                     if (indice !== -1) {
-                        
                         const contraseñaCifrada = contraseñasCifradas[indice];
                         console.log(contraseñaCifrada)
-
                         const contraseñaCifradoInput = cifrarCorreo(contraseñaInput);
                         console.log(contraseñaCifradoInput)
                         if (contraseñaCifrada === contraseñaCifradoInput) {
                             console.log("Inicio de sesión exitoso");
-
                             const cliente = atob(data[indice].Cliente);
                             const clientecod = data[indice].Cliente; // Accede directamente al cliente en lugar de usar map
 
@@ -347,21 +344,17 @@ formulario.addEventListener("submit", (e) => {
                                     console.error("Error al enviar datos a la API:", error);
                                 });
                             
-
-
                             function desactivarBoton() {
                                 boton.disabled = true;
                                 boton2.disabled = true;
                                 boton3.disabled = true;
 
                             }
-
                             function activarBoton() {
                                 boton.disabled = false;
                                 boton2.disabled = false;
                                 boton3.disabled = false;
                             }
-
                             function updatePaymentHistory() {
                                         paymentHistory2024.style.display = "block";
                                         tags.style.display = "none";
@@ -373,7 +366,6 @@ formulario.addEventListener("submit", (e) => {
                                         segurichat.style.display = "none";
                                         divregreso.style.display = "block";
                             }
-
                             function generarrecibopdf (){
                                 // Obtener la fila correspondiente al botón clicado
                                 var fila = event.target.closest('tr');
@@ -437,7 +429,6 @@ formulario.addEventListener("submit", (e) => {
                                     doc.save("recibo_" + mes.toLowerCase() + "_" + año + ".pdf");
                                 }
                             }
-
                             function registrarReserva() {
 
                                 if (boton.disabled) {
@@ -525,7 +516,6 @@ formulario.addEventListener("submit", (e) => {
                                 }
                                 timer = setTimeout(activarBoton, tiempoEspera);
                             }
-                            
                             function verificarDisponibilidad(fecha, tiporeserva) {
                                 const url = "https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/reservaciones";
                                 
@@ -551,7 +541,6 @@ formulario.addEventListener("submit", (e) => {
                                         throw error;
                                     });
                             }
-                            
                             function toggleMisReservas() {
                                 console.log("actualizándose")
                                 const domicilio = domicilioSpan.textContent;
@@ -569,8 +558,6 @@ formulario.addEventListener("submit", (e) => {
                                         console.error(error);
                                     });
                             }
-                            
-                            
                             function agregarRegistros(divmisreservas, registros) {
                                 const contenedor = document.getElementById(divmisreservas);
                                 contenedor.innerHTML = ''; // Limpiar el contenido del contenedor
@@ -657,9 +644,6 @@ formulario.addEventListener("submit", (e) => {
                                     });
                                 }
                             }
-                            
-                            
-                            
                             function calendario(){
                                 divingresos.style.display = "none";
                                 paymentHistory2024.style.display = "none";
@@ -684,7 +668,6 @@ formulario.addEventListener("submit", (e) => {
                                 calendarioIframe.setAttribute("scrolling", "no");
                                 contenedorCalendario.appendChild(calendarioIframe);
                             }
-                            
                             function nuevoregistro(){
                                 divqr.style.display = "none";
                                 divnuevoregistro.style.display = "none";
@@ -701,8 +684,6 @@ formulario.addEventListener("submit", (e) => {
                                 divamenidades.style.display = "none";
                                 borrarElementos();
                             }
-                            
-                            
                             function confirmacionvyp() {
                                 if (boton2.disabled) {
                                     return; // Evitar ejecutar la función si ya está en curso
@@ -790,7 +771,6 @@ formulario.addEventListener("submit", (e) => {
                                     });
                                 timer = setTimeout(activarBoton, tiempoEspera);
                             }
-                            
                             function borrarElementos() {
                                 const namevisita2Span = document.getElementById("namevisita2");
                                 const fechavisita2Span = document.getElementById("fechavisita2");
@@ -825,7 +805,6 @@ formulario.addEventListener("submit", (e) => {
                                 confirmacion.style.display = "none"
                                 divregreso.style.display = "block";
                             }
-                            
                             function enviarsdei() { 
                                 const namevisitaSpan = document.getElementById("namevisita").value;
                                 const tipoSpan = document.getElementById("tipo").value;
@@ -867,10 +846,6 @@ formulario.addEventListener("submit", (e) => {
                                     alert("Domicilio con adeudo, actualmente no tiene derecho al ingreso de visitas o proveedores");
                                 }
                             }
-
-
-
-                            ///
                             function enviardatospago() { 
 
                                 if (boton3.disabled) {
@@ -971,9 +946,6 @@ formulario.addEventListener("submit", (e) => {
                                 timer = setTimeout(activarBoton, tiempoEspera);
 
                             }
-
-                            ///
-                            
                             function regresar() {
                                 paymentHistory2024.style.display = "none";
                                 tags.style.display = "block";
@@ -992,7 +964,6 @@ formulario.addEventListener("submit", (e) => {
 
                             
                             }
-
                             function redireccionarPagos() {
                                 divingresos.style.display = "none";
                                 paymentHistory2024.style.display = "none";
@@ -1008,7 +979,6 @@ formulario.addEventListener("submit", (e) => {
                                 divregreso.style.display = "block";
                                 divpagos.style.display = "block";
                             }
-                            
                             function ingresos() {
                                 divingresos.style.display = "block";
                                 paymentHistory2024.style.display = "none";
@@ -1029,12 +999,53 @@ formulario.addEventListener("submit", (e) => {
                                     divnuevoregistro.style.display = "block";
                                 }
                             }
-                        } else {
-                            alert("Usuario o contraseña incorrectos");
-                        }
-                    } else {
-                        alert("Usuario o contraseña incorrectos");
-                    }   
+                        }  
+                    } else if (indice === -1){
+                        fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/admin")
+                        .then((response) => response.json())
+                        .then((data) => {
+                            const contraseñaCifradoInput = cifrarCorreo(contraseñaInput);
+                            const correosCifradosadmin = data.map((fila) => fila.correo);
+                            const indiceAdmin = correosCifradosadmin.findIndex((correoCifrado) => correoCifrado === correoCifradoInput);
+                            const contraseñasCifradasAdmin = data.map((fila) => fila.password);
+                            console.log("validación admin")
+                            console.log(indiceAdmin)
+                
+                            if (indiceAdmin !== -1) {
+                                const contraseñaCifrada = contraseñasCifradasAdmin[indiceAdmin];
+                
+                                if (contraseñaCifrada === contraseñaCifradoInput) {
+                                    console.log("Inicio de sesión exitoso");
+                                    sesionIniciada = true; // Marcar la sesión como iniciada
+                                    console.log(sesionIniciada)
+                                    const contenedoradmin = document.getElementById("contenedoradmin");
+                                    contenedoradmin.style.display = "block";
+                                    homepage.style.display = "none";
+                
+                                    fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios")
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                
+                                        generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkN0byBKdWFuIENhcmxvc")));
+                                        generarTabla("caballeros-registros", data.filter((registro) => registro.dom.startsWith("IlBvcnRhbGVzI")));
+                                        generarTabla("esmeralda-registros", data.filter((registro) => registro.dom.startsWith("Ik1hcm1vbGVzID")));
+                                        generarTabla("eros-registros", data.filter((registro) => registro.dom.startsWith("IkdyYW4gVmlhI")));
+                                        generarTabla("magdalena-registros", data.filter((registro) => registro.dom.startsWith("IlBsYXphIEFsdGEg")));
+                                        //generarTabla("ibiza-registros", data.filter((registro) => registro.dom.startsWith("IklCSVpBI")));
+                                        //generarTabla("hierro-registros", data.filter((registro) => registro.dom.startsWith("IkhJRVJSTy")));
+                                        
+                                    })
+                                } else {
+                                    alert("Usuario o contraseña incorrectos");
+                                }
+                            } else {
+                                alert("Usuario o contraseña incorrectos 2");
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error al obtener los datos:", error);
+                        });
+                    };   
                 } else {
                     console.log("Debe aceptar el aviso de privacidad para iniciar sesión");
                     alert("Debe aceptar el aviso de privacidad para iniciar sesión");
@@ -1044,7 +1055,6 @@ formulario.addEventListener("submit", (e) => {
                 console.error(error);
         });
     }
-
 });
 
 function togglePasswordVisibility() {
@@ -1305,6 +1315,14 @@ function procesarImagen(datos) {
     });
 }
 
+
+// JavaScript para habilitar la selección de múltiples opciones con un solo clic
+document.getElementById("mespago").addEventListener("click", function(event) {
+    var target = event.target;
+    if (target.tagName === "OPTION") {
+        target.selected = !target.selected;
+    }
+});
   
 function removeSpecialCharacters(input) {
   // Reemplaza caracteres especiales y acentos con una expresión regular
@@ -1330,54 +1348,7 @@ function onClick(e) {
     });
 }
 
-document.getElementById("inicarsesionadmin").addEventListener("click", () => {
-    const usuarioInput = document.getElementById("admin-username").value;
-    const contraseñaInput = document.getElementById("admin-contrasena").value;
 
-    fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/admin")
-        .then((response) => response.json())
-        .then((data) => {
-            const correoCifradoInput = cifrarCorreo(usuarioInput);
-            const correosCifrados = data.map((fila) => fila.correo);
-            const indice = correosCifrados.findIndex((correoCifrado) => correoCifrado === correoCifradoInput);
-            const contraseñasCifradas = data.map((fila) => fila.password);
-
-            if (indice !== -1) {
-                const contraseñaCifrada = contraseñasCifradas[indice];
-                const contraseñaCifradoInput = cifrarCorreo(contraseñaInput);
-
-                if (contraseñaCifrada === contraseñaCifradoInput) {
-                    console.log("Inicio de sesión exitoso");
-                    sesionIniciada = true; // Marcar la sesión como iniciada
-                    console.log(sesionIniciada)
-                    const contenedoradmin = document.getElementById("contenedoradmin");
-                    contenedoradmin.style.display = "block";
-                    homepage.style.display = "none";
-
-                    fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios")
-                    .then((response) => response.json())
-                    .then((data) => {
-
-                        generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkN0byBKdWFuIENhcmxvc")));
-                        generarTabla("caballeros-registros", data.filter((registro) => registro.dom.startsWith("IlBvcnRhbGVzI")));
-                        generarTabla("esmeralda-registros", data.filter((registro) => registro.dom.startsWith("Ik1hcm1vbGVzID")));
-                        generarTabla("eros-registros", data.filter((registro) => registro.dom.startsWith("IkdyYW4gVmlhI")));
-                        generarTabla("magdalena-registros", data.filter((registro) => registro.dom.startsWith("IlBsYXphIEFsdGEg")));
-                        //generarTabla("ibiza-registros", data.filter((registro) => registro.dom.startsWith("IklCSVpBI")));
-                        //generarTabla("hierro-registros", data.filter((registro) => registro.dom.startsWith("IkhJRVJSTy")));
-                        
-                    })
-                } else {
-                    alert("Usuario o contraseña incorrectos");
-                }
-            } else {
-                alert("Usuario o contraseña incorrectos");
-            }
-        })
-        .catch((error) => {
-            console.error("Error al obtener los datos:", error);
-        });
-});
 
 
 function generarTabla(contenedorId, data) {
