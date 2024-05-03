@@ -98,10 +98,8 @@
 									</span>
 								</div>
 								<button class="" id="inicarsesionadmin">Iniciar sesión</button>
-								<button id="" onclick="cerrarAdminPanel()">Soy Residente</button>
 							</div>
 						</div>
-							<button id="" onclick="expandAdminPanel()">Soy administrador</button>
 						</div>
 					</div>                    
 				</div>
@@ -378,7 +376,6 @@
 								<input class="input" type="time" id="horaInicio" name="horaInicio" required>
 								<label for="horaFin">Hora de fin:</label>
 								<input class="input" type="time" id="horaFin" name="horaFin" required>
-								<label>¿Qué deseas reservar?</label>
 								<select id="tiporeserva" required>
 									<option value="">Tipo de reservación</option>
 									<option value="Casa Club">Casa Club</option>
@@ -437,8 +434,7 @@
 					<p> </p>
 				</div>
 				<label for="mespago" class="titulo">Seleccion el mes al que quieres que se aplique tu pago:</label><br>
-				<select id="mespago">
-					<option value="">Seleciona el mes</option>
+				<select id="mespago" required multiple size="10">
 					<option value="ene2024">Enero 2024</option>
 					<option value="feb2024">Febrero 2024</option>
 					<option value="mar2024">Marzo 2024</option>
@@ -477,7 +473,7 @@
 					</button>
 				</div>
 				<div id="segurichat">    
-					<button type="submit" class="btn" onclick="window.location.href = 'https://wa.me/527714148096';">
+					<button type="submit" class="btn" onclick="window.location.href = 'https://wa.me/527713598364';">
 						Contacto Policia Municipal
 					</button>
 				</div>
@@ -505,17 +501,26 @@
 
 	<div class="contenedoradmin" id="contenedoradmin" style="display: none;">
 		<div>
+			<div class="rowadmin">
+				<div class="headeradmin">
+					<h2 class="titulo">Privada Madrid</h2>
+					<p>Administrador</p>
+				</div>
+				<div class="columna-izquierdaadmin">
+					<img src="Fraccify.png" alt="Descripción de la imagen">
+				</div>
+			</div>
 			<div id="encabezadoadmin">
-				<div id="cerrarsesionadmin">	
-					<button type="submit" class="btn">
-						Cerrar Sesión
-					</button>
-				</div>
-				<div id="agregarregistro">	
-					<button type="submit" onclick="expandAdminPanel2()" class="btn">
-						Agregar Registro
-					</button>
-				</div>
+					<div id="cerrarsesionadmin">	
+						<button type="submit" class="btn">
+							Cerrar Sesión
+						</button>
+					</div>
+					<div id="agregarregistro">	
+						<button type="submit" onclick="expandAdminPanel2()" class="btn">
+							Agregar Registro
+						</button>
+					</div>
 			</div>
 			<div class="tablacompleta">
 
@@ -697,6 +702,9 @@
 
   
 
+
+
+  
 
 
   
