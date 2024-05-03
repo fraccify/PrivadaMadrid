@@ -933,3 +933,17 @@ summary::before {
   border-color: #007bff; /* Cambia el color del borde al enfocar el campo */
 }
 
+
+.headeradmin {
+  margin-bottom: 20px;
+  width: 250%;
+}
+
+.rowadmin {
+  display: flex;
+  /* justify-content: space-between; */
+  justify-content: flex-start;
+  /* align-items: flex-start; */
+  align-items: center;
+  flex-direction: row-reverse;
+}
