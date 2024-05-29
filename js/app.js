@@ -169,11 +169,13 @@ formulario.addEventListener("submit", (e) => {
                             nov2024Span.textContent = (data[indice].nov2024);
                             dic2024Span.textContent = (data[indice].dic2024);
                             
+                            const clientesinComillas = cliente.replace(/"/g, "");
+                            const domiciliosinComillas = domicilio.replace(/"/g, "");
 
-                            propietarioSpan.textContent = cliente;
-                            domicilioSpan.textContent = domicilio;
+
+                            propietarioSpan.textContent = clientesinComillas;
+                            domicilioSpan.textContent = domiciliosinComillas;
                             domdvisistaSpan.textContent = domicilio;
-
 
                             correoSpan.textContent = usuarioInput; // Muestra el correo ingresado
                             statusSpan.textContent = status;

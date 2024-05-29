@@ -38,7 +38,7 @@ body {
 }
 
 .columna-izquierda {
-  padding: 5px;
+  padding: 25px;
   min-height: 10vh;
 }
 .row {
@@ -1092,7 +1092,7 @@ summary::before {
 }
 
 .dropdown {
-  padding: 0px 25px;
+  padding: 0px 05px;
 }
 
 .table-custom {
