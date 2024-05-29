@@ -65,7 +65,8 @@ const fechavisita3Span = document.getElementById("fechavisita3");
 const domdvisistaSpan = document.getElementById("domdvisista");
 const divpagocargado = document.getElementById("pagocargado");
 const divseguridad = document.getElementById("seguridad");
-
+const sheetID = "f0115907-7bd6-484a-b9be-a5e10b4fe3bd";
+const privada = "-madrid"
 
 
 
@@ -106,97 +107,14 @@ formulario.addEventListener("submit", (e) => {
 
 
     if ((usuarioInput === "CENTINELA" && contraseñaInput === "Mh6789qr") || (usuarioInput === "AGCH" && contraseñaInput === "Mh6789qr")) {
-        // Redirigir a la página deseada
-        divseguridad.style.display = "block";
-        homepage.style.display = "none";
+        window.location.href = "segundacaseta.html";
 
-        const idunicosAgregados = new Set();
-
-        // Función para obtener los datos del API y agregar los registros
-        function obtenerYAgregarRegistros2() {
-            console.log("actualizando");
-            fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/visitas")
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data); // Imprime los datos obtenidos desde la API
-    
-                    // Filtrar los registros para obtener solo los de hoy
-                    const registrosHoy = data.filter((fila) => esFechaHoy(fila.fecha)); 
-    
-                    // Procesar los datos y agregarlos a los contenedores de calle
-                    agregarRegistros("alba-registrosss", registrosHoy.filter((registro) => registro.domicilio.startsWith("IkN0byBKdWFuIENhcmxvc")));
-                    agregarRegistros("caballeros-registrosss", registrosHoy.filter((registro) => registro.domicilio.startsWith("IlBvcnRhbGVzI")));
-                    agregarRegistros("esmeralda-registrosss", registrosHoy.filter((registro) => registro.domicilio.startsWith("Ik1hcm1vbGVzID")));
-                    agregarRegistros("eros-registrosss", registrosHoy.filter((registro) => registro.domicilio.startsWith("IkdyYW4gVmlhI")));
-                    agregarRegistros("magdalena-registrosss", registrosHoy.filter((registro) => registro.domicilio.startsWith("IlBsYXphIEFsdGEg")));
-                    //agregarRegistros("ibiza-registrosss", registrosHoy.filter((registro) => registro.domicilio.startsWith("IklCSVpBI")));
-                    //agregarRegistros("hierro-registrosss", registrosHoy.filter((registro) => registro.domicilio.startsWith("IkhJRVJSTy")))
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    
-        // Función para agregar registros a un contenedor de calle
-        function agregarRegistros(contenedorId, registros) {
-            const contenedor = document.getElementById(contenedorId);
-            registros.forEach(registro => {
-                // Verificar si el idunico ya se ha agregado
-                if (!idunicosAgregados.has(registro.idunico)) {
-                    const registroHTML = `
-                        <div id="div${registro.idunico}" class="registro-itemss">
-                            <p><strong>Domicilio:</strong> ${atob(registro.domicilio)}</p>
-                            <p><strong>Nombre:</strong> ${registro.namevisita}</p>
-                            <p><strong>Fecha:</strong> ${registro.fecha}</p>
-                            <p><strong>Tipo:</strong> ${registro.tipo}</p>
-                        </div>
-                    `;
-                    contenedor.insertAdjacentHTML('beforeend', registroHTML);
-                    // Agregar el idunico al conjunto de idunico ya agregados
-                    idunicosAgregados.add(registro.idunico);
-                }
-            });
-        }
-    
-        // Función para convertir una fecha de texto en un objeto de fecha
-        function obtenerFechaObj(fechaTexto) {
-            // Verificar si fechaTexto es null antes de intentar dividirla
-            if (!fechaTexto) {
-                return null;
-            }
-    
-            // Dividir la fecha por el carácter '-' en lugar de ' '
-            const partes = fechaTexto.split('-');
-            const año = parseInt(partes[0]);
-            const mes = parseInt(partes[1]) - 1; // Restar 1 al mes ya que en JavaScript los meses van de 0 a 11
-            const dia = parseInt(partes[2]);
-    
-            return new Date(año, mes, dia);
-        }
-    
-        // Función para verificar si una fecha es hoy
-        function esFechaHoy(fechaComparar) {
-            // Verificar si fechaComparar es null antes de intentar usarla
-            if (!fechaComparar) {
-                return false;
-            }
-    
-            const fechaCompararObj = obtenerFechaObj(fechaComparar);
-            const fechaActual = new Date();
-            return fechaCompararObj && fechaCompararObj.toDateString() === fechaActual.toDateString();
-        }
-    
-        // Event listener para el clic en la página
-        document.addEventListener("click", function() {
-            obtenerYAgregarRegistros2();
-        });
-    
-        // Llamar a la función una vez al cargar la página para cargar los registros iniciales
-        obtenerYAgregarRegistros2();
-
+        
+    } else if((usuarioInput === "CENTINELA" && contraseñaInput === "Principal") || (usuarioInput === "AGCH" && contraseñaInput === "Principal")){
+        window.location.href = "seguridadcasetaprincipal.html";
     } else {
-        fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios")
-            //actualización
+        const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}`;
+        fetch(urlProp)            //actualización
             .then((response) => response.json())
             .then((data) => {
 
@@ -326,7 +244,7 @@ formulario.addEventListener("submit", (e) => {
                                 dom: domiciliocod,
                             };
                             
-                            const urlregistro = "https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/registros";
+                            const urlregistro = `https://sheet.best/api/sheets/${sheetID}/tabs/registros${privada}`;
                             const opciones = {
                                 method: "POST",
                                 headers: {
@@ -356,6 +274,7 @@ formulario.addEventListener("submit", (e) => {
                                 boton3.disabled = false;
                             }
                             function updatePaymentHistory() {
+
                                         paymentHistory2024.style.display = "block";
                                         tags.style.display = "none";
                                         btndcerrarsesion.style.display = "none"
@@ -365,6 +284,26 @@ formulario.addEventListener("submit", (e) => {
                                         divbotonvisitas.style.display = "none";
                                         segurichat.style.display = "none";
                                         divregreso.style.display = "block";
+
+                                        const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}/`;
+                                        fetch(urlProp)
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                ene2024Span.textContent = (data[indice].ene2024);
+                                                feb2024Span.textContent = (data[indice].feb2024);
+                                                mar2024Span.textContent = (data[indice].mar2024);
+                                                abr2024Span.textContent = (data[indice].abr2024);
+                                                may2024Span.textContent = (data[indice].may2024);
+                                                jun2024Span.textContent = (data[indice].jun2024);
+                                                jul2024Span.textContent = (data[indice].jul2024);
+                                                ago2024Span.textContent = (data[indice].ago2024);
+                                                sep2024Span.textContent = (data[indice].sep2024);
+                                                oct2024Span.textContent = (data[indice].oct2024);
+                                                nov2024Span.textContent = (data[indice].nov2024);
+                                                dic2024Span.textContent = (data[indice].dic2024);
+                                                console.log("Pagos actualizados");
+                                            });
+
                             }
                             function generarrecibopdf (){
                                 // Obtener la fila correspondiente al botón clicado
@@ -466,7 +405,7 @@ formulario.addEventListener("submit", (e) => {
                                                     
                                 if (statuscod === "Al Corriente") {
                                     
-                                    const url = "https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/reservaciones";
+                                    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones${privada}`;
                                     const opciones = {
                                         method: "POST",
                                         headers: {
@@ -517,7 +456,7 @@ formulario.addEventListener("submit", (e) => {
                                 timer = setTimeout(activarBoton, tiempoEspera);
                             }
                             function verificarDisponibilidad(fecha, tiporeserva) {
-                                const url = "https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/reservaciones";
+                                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones${privada}`;
                                 
                                 // Realizar una consulta para obtener los registros en la misma fecha y amenidad
                                 return fetch(url)
@@ -544,7 +483,8 @@ formulario.addEventListener("submit", (e) => {
                             function toggleMisReservas() {
                                 console.log("actualizándose")
                                 const domicilio = domicilioSpan.textContent;
-                                fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/reservaciones")
+                                const urlmisreservas = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones${privada}`
+                                fetch(urlmisreservas)
                                     .then((response) => response.json())
                                     .then((data) => {
                                         console.log(domiciliocod);
@@ -590,10 +530,9 @@ formulario.addEventListener("submit", (e) => {
                                 
                             function eliminarreservacion(amenidad, fecha, domiciliocod) {
                                 // Obtener la URL de la API
-                                const apiURL = "https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/reservaciones";
-                                
+                                const urlmisreservas = `https://sheet.best/api/sheets/${sheetID}/tabs/reservaciones${privada}`
+                                fetch(urlmisreservas)                                
                                 // Realizar una solicitud GET para obtener los datos de la hoja de cálculo
-                                fetch(apiURL)
                                     .then(response => response.json())
                                     .then(data => {
                                         // Encontrar el índice del registro que coincide con los datos proporcionados
@@ -701,13 +640,31 @@ formulario.addEventListener("submit", (e) => {
                                 const fechavisitaSpan = document.getElementById("fechavisita").value;
                                 const fechaHoraActual = new Date();
                                 const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+
+                                //Formatear la fecha como DDMMAAAA
+                                const dia = String(fechaHoraActual.getDate()).padStart(2, "0");
+                                const mes = String(fechaHoraActual.getMonth() + 1).padStart(
+                                2,
+                                "0"
+                                ); // Los meses empiezan desde 0
+                                const año = fechaHoraActual.getFullYear();
+
+                                // Formatear la hora como HHMM
+                                const horas = String(fechaHoraActual.getHours()).padStart(
+                                2,
+                                "0"
+                                );
+                                const minutos = String(fechaHoraActual.getMinutes()).padStart(
+                                2,
+                                "0"
+                                );
                             
                                 const propietarioAbreviado = propietario.slice(0, 2).toUpperCase();
                                 const domicilioAbreviado = domicilio.slice(0, 2).toUpperCase();
                                 const namevisitaAbreviado = namevisitaSpan.slice(0, 2).toUpperCase();
                                 const fechaSinEspacios = fechavisitaSpan.replace(/\s/g, ''); // Eliminar espacios de la fecha
                                 const fechaHoraRegistroSinEspacios = fechaHoraFormateada.replace(/\s/g, ''); // Eliminar espacios de la fechaHoraRegistro
-                                const idUnico = `${propietarioAbreviado}${domicilioAbreviado}${namevisitaAbreviado}${fechaSinEspacios}${fechaHoraRegistroSinEspacios}`;
+                                const idUnico = `${propietarioAbreviado}${domicilioAbreviado}${namevisitaAbreviado}${dia}${mes}${año}${horas}${minutos}`;
                                 console.log(idUnico)
 
 
@@ -730,9 +687,10 @@ formulario.addEventListener("submit", (e) => {
                                     Nombre: namevisitaSpan,
                                     Fecha: fechavisitaSpan,
                                     Tipo: tipoSpan,
+                                    ID: idUnico,
                                 };
                             
-                                const url = "https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/visitas";
+                                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/visitas${privada}`;
                             
                                 const opciones = {
                                     method: "POST",
@@ -852,100 +810,136 @@ formulario.addEventListener("submit", (e) => {
                                     return; // Evitar ejecutar la función si ya está en curso
                                 }
                                 desactivarBoton(); // Desactivar el botón al inicio de la función
+                                let fechaPagoSpan = document.getElementById("fechaPago").textContent;
+                                let montoPagoSpan = document.getElementById("montoPago").textContent;
+                                let beneficiarioPagoSpan = document.getElementById("beneficiarioPago").textContent;
+                                let conceptodelpagoPagoSpan = document.getElementById("conceptodelpago").textContent;
+                                let clavederastreoSpan = document.getElementById("clavederastreo").textContent;
+                                let fechaHoraActual = new Date();
+                                let fechaHoraFormateada = fechaHoraActual.toLocaleString();
+                                let mesPagoSelect = document.getElementById("mespago").value;
+                                const inputArchivo = document.getElementById("archivo");
 
-
-                                const fechaPagoSpan = document.getElementById("fechaPago").textContent;
-                                const montoPagoSpan = document.getElementById("montoPago").textContent;
-                                const beneficiarioPagoSpan = document.getElementById("beneficiarioPago").textContent;
-                                const conceptodelpagoPagoSpan = document.getElementById("conceptodelpago").textContent;
-                                const clavederastreoSpan = document.getElementById("clavederastreo").textContent;
-                                const fechaHoraActual = new Date();
-                                const fechaHoraFormateada = fechaHoraActual.toLocaleString();
-                                const mesPagoSelect = document.getElementById("mespago");
-                                const selectedOptions = Array.from(mesPagoSelect.options).filter(option => option.selected).map(option => option.value);
-                                console.log(selectedOptions);
                                 
                                 // Verificar si el pago ya ha sido aplicado
 
-                                const urlVerificacion = `https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/pagos/clavederastreo/${encodeURIComponent(clavederastreoSpan)}`;
+                                const urlVerificacion = `https://sheet.best/api/sheets/${sheetID}/tabs/pagos${privada}/clavederastreo/${encodeURIComponent(clavederastreoSpan)}`;
                                 console.log(urlVerificacion);
-                                
-                                
-                                fetch(urlVerificacion)
-                                    .then((response) => response.json())
-                                    .then((data) => {
-                                        console.log(data)
-                                        console.log(data.length)
 
+                                if (mesPagoSelect=== "") {
+                                    alert("Debe selecionar el mes al que desea que se aplique su pago")
+                                    timer = setTimeout(activarBoton, tiempoEspera);
 
-                                        if (data.length > 0) {
-                                            // Pago ya registrado, mostrar alerta
-                                            alert("Este comprobante ya no se puede volver a ocupar");
-
-                                            document.getElementById("fechaPago").value = "";
-                                            document.getElementById("montoPago").value = "";
-                                            document.getElementById("beneficiarioPago").value = "";
-                                            document.getElementById("conceptodelpago").value = "";
-                                            document.getElementById("clavederastreo").value = "";
-                                            divpagocargado.style.display = "none";
-
-
-                                        } else {
-                                            // Pago no registrado, proceder a enviar los datos
-                                            enviarDatos();
-
-                                            alert("Tu pago fue enviado, se procedera a su revisión y aplicación")
-                                            document.getElementById("fechaPago").value = "";
-                                            document.getElementById("montoPago").value = "";
-                                            document.getElementById("beneficiarioPago").value = "";
-                                            document.getElementById("conceptodelpago").value = "";
-                                            document.getElementById("clavederastreo").value = "";
-                                            divpagocargado.style.display = "none";
-
-
-                                        }
-                                    })
-                                    .catch((error) => {
-                                        console.error("Error al verificar los datos", error);
-                                    });
-                            
-                                function enviarDatos() {
-                                    const datos = {
-                                        registro: fechaHoraFormateada,
-                                        dom: domiciliocod,
-                                        nombre: clientecod,
-                                        domds: domicilio,
-                                        beneficiario: beneficiarioPagoSpan,
-                                        fechapago: fechaPagoSpan,
-                                        monto: montoPagoSpan,
-                                        concepto: conceptodelpagoPagoSpan,
-                                        aplicarpara : selectedOptions,
-                                        clavederastreo : clavederastreoSpan,
-                                    };
-    
-                            
-                                    const url = "https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/pagos";
-                                    const opciones = {
-                                        method: "POST",
-                                        headers: {
-                                            "Content-Type": "application/json"
-                                        },
-                                        body: JSON.stringify(datos)
-                                    };
-                            
-                                    fetch(url, opciones)
+                                } else {
+                                    fetch(urlVerificacion)
                                         .then((response) => response.json())
                                         .then((data) => {
-                                            // Lógica después de enviar datos
+                                            console.log(data)
+                                            console.log(data.length)
+
+                                            if (data.length > 0) {
+                                                // Pago ya registrado, mostrar alerta
+                                                alert("Este comprobante ya no se puede volver a ocupar");
+                                                timer = setTimeout(activarBoton, tiempoEspera);
+
+
+                                                document.getElementById("fechaPago").value = "";
+                                                document.getElementById("montoPago").value = "";
+                                                document.getElementById("beneficiarioPago").value = "";
+                                                document.getElementById("conceptodelpago").value = "";
+                                                document.getElementById("clavederastreo").value = "";
+                                                inputArchivo.value = "";
+
+                                                divpagocargado.style.display = "none";
+
+                                            } else {
+                                                // Pago no registrado, proceder a enviar los datos
+                                                grabarpago();
+                                                enviarDatos();
+
+                                                alert("Pago por " + montoPagoSpan +" aplicado a " + mesPagoSelect)
+
+
+                                                
+                                                document.getElementById("fechaPago").value = "";
+                                                document.getElementById("montoPago").value = "";
+                                                document.getElementById("beneficiarioPago").value = "";
+                                                document.getElementById("conceptodelpago").value = "";
+                                                document.getElementById("clavederastreo").value = "";
+                                                divpagocargado.style.display = "none";
+                                                timer = setTimeout(activarBoton, tiempoEspera);
+                                            }
                                         })
                                         .catch((error) => {
-                                            console.error("Error al enviar los datos a la hoja de cálculo", error);
+                                            console.error("Error al verificar los datos", error);
                                         });
+                                
+                                    function enviarDatos() {
+                                        const datos = {
+                                            registro: fechaHoraFormateada,
+                                            dom: domiciliocod,
+                                            nombre: clientecod,
+                                            domds: domicilio,
+                                            beneficiario: beneficiarioPagoSpan,
+                                            fechapago: fechaPagoSpan,
+                                            monto: montoPagoSpan,
+                                            concepto: conceptodelpagoPagoSpan,
+                                            aplicarpara : mesPagoSelect,
+                                            clavederastreo : clavederastreoSpan,
+                                        };
+        
+                                
+                                        const url = `https://sheet.best/api/sheets/${sheetID}/tabs/pagos${privada}`;
+                                        const opciones = {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify(datos)
+                                        };
+                                
+                                        fetch(url, opciones)
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                // Lógica después de enviar datos
+                                            })
+                                            .catch((error) => {
+                                                console.error("Error al enviar los datos a la hoja de cálculo", error);
+                                            });
+                                    }
+
+                                    function grabarpago(){
+
+                                        console.log("el indice es");
+                                        console.log(indice);
+
+
+                                        const pagoaplicado ={
+                                            [mesPagoSelect]: montoPagoSpan,
+                                        }
+                                        const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}/${indice}`;
+                                        console.log("URL:", url);
+                                        // Realizar la solicitud PATCH para actualizar los datos
+                                        fetch(url, {
+                                            method: "PATCH",
+                                            mode: "cors",
+                                            headers: {
+                                                "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify(pagoaplicado)
+                                                })
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                console.log("Pago aplicado");
+                                            })
+                                            .catch((error) => {
+                                                console.error("Error al aplicar el pago", error);
+                                        });
+                                     }
+                                                                     
                                 }
-
-                                timer = setTimeout(activarBoton, tiempoEspera);
-
                             }
+
                             function regresar() {
                                 paymentHistory2024.style.display = "none";
                                 tags.style.display = "block";
@@ -1001,8 +995,8 @@ formulario.addEventListener("submit", (e) => {
                             }
                         }  
                     } else if (indice === -1){
-                        fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/admin")
-                        .then((response) => response.json())
+                        const urlAdmin = `https://sheet.best/api/sheets/${sheetID}/tabs/admin${privada}`;
+                        fetch(urlAdmin)                        .then((response) => response.json())
                         .then((data) => {
                             const contraseñaCifradoInput = cifrarCorreo(contraseñaInput);
                             const correosCifradosadmin = data.map((fila) => fila.correo);
@@ -1022,7 +1016,8 @@ formulario.addEventListener("submit", (e) => {
                                     contenedoradmin.style.display = "block";
                                     homepage.style.display = "none";
                 
-                                    fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios")
+                                    const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}`;
+                                    fetch(urlProp)                                    
                                     .then((response) => response.json())
                                     .then((data) => {
                 
@@ -1445,8 +1440,9 @@ function actualizarDato(valor, campo, domcodificado) {
         console.log("Campo:", campo);
         console.log("Índice:", domcodificado);
 
-        fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios")
-            .then((response) => response.json())
+        const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}`;
+        fetch(urlProp)            
+        .then((response) => response.json())
             .then((data) => {
                 const domcodificados = data.map((fila) => fila.dom);
                 const indice = domcodificados.findIndex((dom) => dom === domcodificado);
@@ -1464,7 +1460,7 @@ function actualizarDato(valor, campo, domcodificado) {
                     [campo]: valorActualizado,
                 };
 
-                const url = `https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios/${indice}`;
+                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}/${indice}`;
                 console.log("URL:", url);
                 // Realizar la solicitud PATCH para actualizar los datos
                 fetch(url, {
@@ -1570,7 +1566,7 @@ function agregarresidente () {
         console.log(newusarname);
         console.log(domcif);
 
-        const urlVerificacion = `https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios/dom/${(domcif)}`;
+        const urlVerificacion = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}/dom/${(domcif)}`;
         console.log(urlVerificacion);
 
         fetch(urlVerificacion)
@@ -1590,7 +1586,7 @@ function agregarresidente () {
                     cel: newcel,
                 };
 
-                const url = "https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios";
+                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}`;
 
                 const opciones = {
                     method: "POST",
@@ -1618,7 +1614,8 @@ function agregarresidente () {
                         }, 3000);
 
                         setTimeout(() => {
-                            fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios")
+                                const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}`;
+                                fetch(urlProp)
                                 .then((response) => response.json())
                                 .then((data) => {
                                     generarTabla("alba-registros", data.filter((registro) => registro.dom.startsWith("IkN0byBKdWFuIENhcmxvc")));
@@ -1673,8 +1670,9 @@ function cerrarAdminPanel2() {
 
 function eliminarRegistro(domcodificado){
     if (sesionIniciada) {
-        fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios")
-            .then((response) => response.json())
+
+        const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}`;
+        fetch(urlProp)        .then((response) => response.json())
             .then((data) => {
                 const domcodificados = data.map((fila) => fila.dom);
                 const indice = domcodificados.findIndex((dom) => dom === domcodificado);
@@ -1682,7 +1680,7 @@ function eliminarRegistro(domcodificado){
 
                 if (indice !== -1) {
                     // Realizar la solicitud DELETE para eliminar el registro
-                    const url = `https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios/${indice}`;
+                    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}/${indice}`;
                     fetch(url, {
                         method: "DELETE",
                         mode: "cors",
@@ -1693,7 +1691,9 @@ function eliminarRegistro(domcodificado){
                         alert("Registro eliminado correctamente:");
 
                         setTimeout(() => {
-                            fetch("https://sheet.best/api/sheets/efafebfa-7531-4c14-97d7-e3aa81791b1d/tabs/propietarios")
+                            const urlProp = `https://sheet.best/api/sheets/${sheetID}/tabs/propietarios${privada}`;
+                            fetch(urlProp)
+
                                 .then((response) => response.json())
                                 .then((data) => {
 
@@ -1733,4 +1733,3 @@ function eliminarRegistro(domcodificado){
 function validarNumero(input) {
     input.value = input.value.replace(/\D/g, ''); // Eliminar caracteres que no sean dígitos
 }
-

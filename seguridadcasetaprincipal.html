@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="assets/plugins/qrCode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/estilos.css" />
+  </head>
+  <body>
+    <div class="contenedorhome" id="inicio" style="display: block;">
+      <div class="contenedorcamaraybotones">
+        <div class="col-sm-4 shadow p-3">
+          <div class="camaraqr">
+            <h1 class="titulo">Escanear codigo QR Caseta Principal</h1>
+
+            <a id="btn-scan-qr" href="#">
+              <img
+                src="FraccifyQR.png"
+                class="img-fluid text-center"
+                width="180px"
+              />
+            </a>
+            <canvas hidden="" id="qr-canvas" class="img-fluid"></canvas>
+          </div>
+
+          <div class="botonescamara">
+            <button
+              class="btn btn-success btn-sm rounded-3 mb-2"
+              onclick="encenderCamara()"
+              >
+              Encender camara
+            </button>
+            <button
+              class="btn btn-danger btn-sm rounded-3"
+              onclick="cerrarCamara()"
+              >
+              Detener camara
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="contenedorhomeverde" class="contenedorhomeverde" style="display: none;">
+      <div class="datosverde">
+        <h1>Acceso Caseta Principal</h1>
+        <h1>Puede pasar</h1>
+        <p>Domicilio: <span id="dom"></span></p>
+        <p>Nombre Visita: <span id="nom"></span></p>
+        <p>Fecha: <span id="fecha"></span></p>
+        <p>Tipo: <span id="tipo"></span></p>
+        <p>ID: <span id="idUnico"></span></p>  
+      </div>
+    </div> 
+    <div id="contenedorhomerojo"   class="contenedorhomerojo" style="display: none;">
+      <div class="datosrojo">
+        <h1>QR invalido</h1>
+				<div id="cerrarsesion">	
+					<button type="submit" class="btn">
+						Cerrar Sesión
+					</button>
+				</div>      
+      </div>
+    </div>
+    <div id="qryautilizado"   class="contenedorhomerojo" style="display: none;">
+      <div class="datosrojo">
+        <h1>Código QR ya utilizado para ingresar en caseta principal</h1>
+        <h1>  No se puede volver a usar</h1>   
+      </div>
+    </div>
+    <div id="qrconotrafecha"   class="contenedorhomerojo" style="display: none;">
+      <div class="datosrojo">
+        <h1>La fecha del Código QR no corresponde al día de hoy</h1>
+      </div>
+    </div>
+    <audio id="audioScaner" src="assets/sonido.mp3"></audio>
+
+    <script src="assets/js/index.js"></script>
+  </body>
+</html>

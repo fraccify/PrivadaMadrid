@@ -288,21 +288,20 @@
 		<div clas="contenedorformulario" id="divingresos" style="display: none;">
 			<div>
 				<div class="contenedorformulariovisita">
-					<form class="formulario2" id="formulario2">
+					<form class="formulario4" id="formulario2">
 						<div class="contenedor-input">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-							</svg>
+							<p>Nombre de la visita o proveedor</p>  
 							
 							<input class="input" type="text" id="namevisita" placeholder="Nombre de visita o proveedor" oninput="removeSpecialCharacters(this)" required>
 							
 						</div>
 						<div class="contenedor-fecha">
-							<input class="input" type="date" id="fechavisita" placeholder="Ingresa fecha" required>  
+							<p>Selecione la fecha de ingreso</p>  
+							<input class="inputfecha" type="date" id="fechavisita" placeholder="Ingresa fecha" required>
+							<p>Selecione el tipo de visita</p>  
 							<select id="tipo" required>
 								<option value="">Selecciona el tipo de visita...</option>
-								<option value="familiar-amigo">Familiar o Amigo</option>
+								<option value="familiar-amigo">Familiar o Amigo</option>								
 								<option value="proveedor">Proveedor</option>
 							</select>
 						</div>
@@ -401,10 +400,9 @@
 		<div id="divpagos" style="display: none;" class="contenedor">
 			<p class="titulo">Datos Bancarios</p>
 			<p>Banco: SANTANDER</p>
-			<p>Titular: COLONOS SAN SEBASTIAN, A.C.</p>
-			<p>Cuenta: 65509378739</p>
-			<p>CLABE: 014308655093787392</p>
-			<p>Monto: $550.00 M.N.</p>
+			<p>Titular: CUENTA DE LA PRIVADA, A.C.</p>
+			<p>CLABE: 014458451551</p>
+			<p>Monto: $450.00 M.N.</p>
 			<p> </p>
 			<p> </p>
 			<p class="titulo">Adjunta tu pago<p>
@@ -501,29 +499,24 @@
 
 	<div class="contenedoradmin" id="contenedoradmin" style="display: none;">
 		<div>
-			<div class="rowadmin">
-				<div class="headeradmin">
-					<h2 class="titulo">Privada Madrid</h2>
-					<p>Administrador</p>
-				</div>
-				<div class="columna-izquierda2">
-					<img src="Fraccify.jpg" alt="Descripción de la imagen">
-				</div>
-			</div>
 			<div id="encabezadoadmin">
-					<div id="cerrarsesionadmin">	
-						<button type="submit" class="btn">
-							Cerrar Sesión
-						</button>
-					</div>
-					<div id="agregarregistro">	
-						<button type="submit" onclick="expandAdminPanel2()" class="btn">
-							Agregar Registro
-						</button>
-					</div>
+				<div id="cerrarsesionadmin">	
+					<button type="submit" class="btnadmin">
+						Cerrar Sesión
+					</button>
+				</div>
+				<div id="agregarregistro">	
+					<button type="submit" onclick="expandAdminPanel2()" class="btnadmin">
+						Agregar Registro
+					</button>
+				</div>
+				<div id="descargarinformes">	
+					<button type="submit" onclick="expandAdminPanel3()" class="btnadmin">
+						Descargar informes
+					</button>
+				</div>
 			</div>
 			<div class="tablacompleta">
-
 				<div class="buscador">
 				</div>
 				<details class="calle-box" id="calle-alba">
@@ -697,19 +690,6 @@
   
 
 
-
-  
-
-  
-
-
-
-  
-
-
-  
-
-  
 
   
 
