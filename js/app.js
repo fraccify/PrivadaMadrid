@@ -188,7 +188,7 @@ formulario.addEventListener("submit", (e) => {
                             botones.style.display = "block";
 
 
-                            document.getElementById('fechavisita').setAttribute('min', today);
+                            //document.getElementById('fechavisita').setAttribute('min', today);
                             document.getElementById('fechareserva').setAttribute('min', today);
 
                             document.getElementById("divbotonhistorico").addEventListener("click", updatePaymentHistory);
