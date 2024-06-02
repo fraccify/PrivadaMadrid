@@ -897,15 +897,17 @@ summary::before {
 
 /* Estilo base para el summary dentro de un .calle-boxss */
 .calle-boxss summary {
-  cursor: pointer;
-  outline: none; /* Elimina el contorno predeterminado en algunos navegadores */
-  background-color: #013e6a;
-  width: 100%;
-  color: white;
-  border-radius: 8px;
-  display: flex;
-  font-size: 16px;
-  align-items: center;
+    cursor: pointer;
+    outline: none;
+    background-color: #013e6a;
+    width: 100%;
+    height: 25px;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .calle-box summary {
@@ -1209,6 +1211,8 @@ summary::before {
   flex-wrap: wrap;
   align-content: space-around;
   flex-direction: column;
+  margin-bottom: 10px;
+
 }
 
 .contenedorcamaraybotones {
@@ -1282,4 +1286,21 @@ summary::before {
 
 #btn-reload{
   background-color: rgba(255, 255, 255, 0.22);
+}
+
+.registrospendientes {
+  text-align: center; /* Centrar el contenido */
+  font-size: 14px; /* Tamaño de la letra */
+  margin: 0 auto; /* Centrará el div si tiene un ancho específico */
+  margin-bottom: 10px; /* Ajusta el valor según el espacio deseado */
+}
+
+.registrospendientes .titulo {
+  font-size: 14px; /* Tamaño de la letra para el título */
+}
+.qrElementResidentes{
+  padding: 10px;
+  width: 95%;
+  margin: 0 auto;
+  margin-bottom: 10px; /* Ajusta el valor según el espacio deseado */
 }

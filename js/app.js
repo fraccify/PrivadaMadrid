@@ -67,7 +67,8 @@ const divpagocargado = document.getElementById("pagocargado");
 const divseguridad = document.getElementById("seguridad");
 const sheetID = "f0115907-7bd6-484a-b9be-a5e10b4fe3bd";
 const privada = "-madrid"
-
+const divqrResdidentes = document.getElementById("qrResdidentes");
+const botonqrdinamicoresidentes = document.getElementById("qrdinamicoresidentes");
 
 
 let sesionIniciada = false;
@@ -186,15 +187,21 @@ formulario.addEventListener("submit", (e) => {
                             btndcerrarsesion.style.display = "block"
                             inicio.style.display = "block";
                             botones.style.display = "block";
+                            divbotonhistorico.style.display = "none";
+                            divbotonpago.style.display = "none";
+                            divbotonreservar.style.display = "none";
 
 
-                            //document.getElementById('fechavisita').setAttribute('min', today);
+
+
+                            //document.getElementById('fechavisita').setAttribute('min', fechaHoraFormateada);
                             document.getElementById('fechareserva').setAttribute('min', today);
 
                             document.getElementById("divbotonhistorico").addEventListener("click", updatePaymentHistory);
                             document.getElementById("divbotonpago").addEventListener("click", redireccionarPagos);
                             document.getElementById("divregreso").addEventListener("click", regresar);
                             document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
+                            document.getElementById("qrdinamicoresidentes").addEventListener("click", divgenerarqrresidentes);
                             document.getElementById("divbotonvisitas").addEventListener("click", ingresos);
                             document.getElementById("btnenviaringreso").addEventListener("click", enviarsdei);
                             document.getElementById("datoscorrectosvisitas").addEventListener("click", confirmacionvyp);
@@ -228,11 +235,14 @@ formulario.addEventListener("submit", (e) => {
                             document.getElementById("btnrecibooct2023").addEventListener("click", generarrecibopdf);
                             document.getElementById("btnrecibonov2023").addEventListener("click", generarrecibopdf);
                             document.getElementById("btnrecibodic2023").addEventListener("click", generarrecibopdf);
+                            document.getElementById("generarqrdinamico").addEventListener("click", qrdinamico);
                             document.getElementById("borrardatos").addEventListener("click", borrarElementos);
 
                             var boton = document.getElementById("btnparaconfirmarreserca");                            
                             var boton2 = document.getElementById("generarvisitayqr");
                             var boton3 = document.getElementById("enviarpago")
+                            var boton4 = document.getElementById("generarqrdinamico")
+
 
                             var tiempoEspera = 5 * 1000; // 5 minutos en milisegundos
                             var timer; // variable para almacenar el temporizador
@@ -598,6 +608,7 @@ formulario.addEventListener("submit", (e) => {
                                 divamenidades.style.display = "block";
                                 divreservar.style.display = "block";
                                 divregreso.style.display = "block";
+                                botonqrdinamicoresidentes.style.display = "none";
 
                                 const contenedorCalendario = document.getElementById("contenedorCalendario");
                                 const calendarioIframe = document.createElement("iframe");
@@ -615,16 +626,115 @@ formulario.addEventListener("submit", (e) => {
                                 paymentHistory2024.style.display = "none";
                                 tags.style.display = "block";
                                 btndcerrarsesion.style.display = "block"
-                                divbotonhistorico.style.display = "block";
-                                divbotonpago.style.display = "block";
-                                divbotonreservar.style.display = "block";
+                                divbotonhistorico.style.display = "none";
+                                divbotonpago.style.display = "none";
+                                divbotonreservar.style.display = "none";
                                 divbotonvisitas.style.display = "block";
+
                                 divingresos.style.display = "none";
                                 segurichat.style.display = "none";
                                 divnuevoregistro.style.display = "none";
                                 divamenidades.style.display = "none";
                                 borrarElementos();
                             }
+
+                            function divgenerarqrresidentes() {
+                                divbotonvisitas.style.display = "none";
+                                segurichat.style.display = "none";
+                                botonqrdinamicoresidentes.style.display = "none";
+                                divqrResdidentes.style.display = "block";
+                                divregreso.style.display = "block";
+                                btndcerrarsesion.style.display = "none"
+                                divingresos.style.display = "none";
+
+
+                            }
+
+                            function qrdinamico() {
+                                if (boton4.disabled) {
+                                    return; // Evitar ejecutar la función si ya está en curso
+                                }
+                                const domicilio = domicilioSpan.textContent;
+                                const propietario = propietarioSpan.textContent;
+                                const fechaHoraActual = new Date();
+                                const fechaHoraFormateada = fechaHoraActual.toLocaleString();
+                            
+                                // Formatear la fecha como DDMMAAAA
+                                const dia = String(fechaHoraActual.getDate()).padStart(2, "0");
+                                const mes = String(fechaHoraActual.getMonth() + 1).padStart(2, "0"); // Los meses empiezan desde 0
+                                const año = fechaHoraActual.getFullYear();
+                            
+                                // Formatear la hora como HHMM
+                                const horas = String(fechaHoraActual.getHours()).padStart(2, "0");
+                                const minutos = String(fechaHoraActual.getMinutes()).padStart(2, "0");
+                            
+                                const propietarioAbreviado = propietario.slice(0, 2).toUpperCase();
+                                const domicilioAbreviado = domicilio.slice(0, 2).toUpperCase();
+                                const idUnicoRes = `${propietarioAbreviado}${domicilioAbreviado}${dia}${mes}${año}${horas}${minutos}`;
+                                console.log(idUnicoRes);
+                            
+                                const qrDataResidentes = {
+                                    domicilio: domicilio,
+                                    Fecha: fechaHoraFormateada,
+                                    ID: idUnicoRes,
+                                };
+                            
+                                const datos = {
+                                    propietario: clientecod,
+                                    domicilio: domiciliocod,
+                                    fecha: fechaHoraFormateada,
+                                    fechaHoraRegistro: fechaHoraFormateada,
+                                    idunico: idUnicoRes,
+                                };
+                            
+                                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/qrresidentes${privada}`;
+                            
+                                const opciones = {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify(datos)
+                                };
+                            
+                                // Enviar los datos a la hoja de cálculo
+                                fetch(url, opciones)
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        // Alerta de éxito después de enviar los datos
+                                        // Generar el contenido para el QR
+                                        const qrContentRes = JSON.stringify(qrDataResidentes);
+                            
+                                        // Obtener el contenedor donde se desea agregar el código QR
+                                        const contenedorQR = document.getElementById('qrElementResidentes');
+                            
+                                        // Limpiar el contenido anterior del contenedor
+                                        contenedorQR.innerHTML = '';
+                            
+                                        // Generar el código QR y mostrarlo en la página
+                                        new QRCode(contenedorQR, qrContentRes);
+                            
+                                        // Llamar a las funciones para borrar elementos y regresar
+                                        //borrarElementos();
+                                        //regresar();
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error al enviar los datos a la hoja de cálculo", error);
+                                    });
+                            
+                                timer = setTimeout(activarBoton, tiempoEspera);
+                            }
+                            
+
+
+
+
+
+                            
+
+
+
+
                             function confirmacionvyp() {
                                 if (boton2.disabled) {
                                     return; // Evitar ejecutar la función si ya está en curso
@@ -731,6 +841,8 @@ formulario.addEventListener("submit", (e) => {
                                     });
                                 timer = setTimeout(activarBoton, tiempoEspera);
                             }
+
+
                             function borrarElementos() {
                                 const namevisita2Span = document.getElementById("namevisita2");
                                 const fechavisita2Span = document.getElementById("fechavisita2");
@@ -946,17 +1058,19 @@ formulario.addEventListener("submit", (e) => {
                                 paymentHistory2024.style.display = "none";
                                 tags.style.display = "block";
                                 btndcerrarsesion.style.display = "block"
-                                divbotonhistorico.style.display = "block";
-                                divbotonpago.style.display = "block";
-                                divbotonreservar.style.display = "block";
+                                divbotonhistorico.style.display = "none";
+                                divbotonpago.style.display = "none";
+                                divbotonreservar.style.display = "none";
                                 divbotonvisitas.style.display = "block";
                                 divingresos.style.display = "none";
                                 segurichat.style.display = "block";
+                                botonqrdinamicoresidentes.style.display = "block";
                                 divnuevoregistro.style.display = "none";
                                 divamenidades.style.display = "none";
                                 divreservar.style.display = "none";
                                 divpagos.style.display = "none";
                                 divregreso.style.display = "none";
+                                divqrResdidentes.style.display = "none";
 
                             
                             }
@@ -988,6 +1102,10 @@ formulario.addEventListener("submit", (e) => {
                                 divreservar.style.display = "none";
                                 btnenborrar.style.display = "block";
                                 divregreso.style.display = "block";
+                                divqrResdidentes.style.display = "none";
+                                botonqrdinamicoresidentes.style.display = "none";
+
+
                             
                                 if (!namevisitaSpan || namevisitaSpan === "") {
                                     divnuevoregistro.style.display = "none";
@@ -1406,18 +1524,6 @@ function generarTabla(contenedorId, data) {
                                     </select>
                                 </td>
                             </tr>`;
-                tablaHTML += `<tr><td>Ene 2024</td><td><input class="pago" type="text" value="${fila.ene2024}" onchange="actualizarDato(this.value, 'ene2024', '${domcodificado}')"></td></tr>`;
-                tablaHTML += `<tr><td>Feb 2024</td><td><input class="pago" type="text" value="${fila.feb2024}" onchange="actualizarDato(this.value, 'feb2024', '${domcodificado}')"></td></tr>`;
-                tablaHTML += `<tr><td>Mar 2024</td><td><input class="pago" type="text" value="${fila.mar2024}" onchange="actualizarDato(this.value, 'mar2024', '${domcodificado}')"></td></tr>`;
-                tablaHTML += `<tr><td>Abr 2024</td><td><input class="pago" type="text" value="${fila.abr2024}" onchange="actualizarDato(this.value, 'abr2024', '${domcodificado}')"></td></tr>`;
-                tablaHTML += `<tr><td>May 2024</td><td><input class="pago" type="text" value="${fila.may2024}" onchange="actualizarDato(this.value, 'may2024', '${domcodificado}')"></td></tr>`;
-                tablaHTML += `<tr><td>Jun 2024</td><td><input class="pago" type="text" value="${fila.jun2024}" onchange="actualizarDato(this.value, 'jun2024', '${domcodificado}'})"></td></tr>`;
-                tablaHTML += `<tr><td>Jul 2024</td><td><input class="pago" type="text" value="${fila.jul2024}" onchange="actualizarDato(this.value, 'jul2024', '${domcodificado}')"></td></tr>`;
-                tablaHTML += `<tr><td>Ago 2024</td><td><input class="pago" type="text" value="${fila.ago2024}" onchange="actualizarDato(this.value, 'ago2024', '${domcodificado}')"></td></tr>`;
-                tablaHTML += `<tr><td>Sep 2024</td><td><input class="pago" type="text" value="${fila.sep2024}" onchange="actualizarDato(this.value, 'sep2024', '${domcodificado}')"></td></tr>`;
-                tablaHTML += `<tr><td>Oct 2024</td><td><input class="pago" type="text" value="${fila.oct2024}" onchange="actualizarDato(this.value, 'oct2024', '${domcodificado}')"></td></tr>`;
-                tablaHTML += `<tr><td>Nov 2024</td><td><input class="pago" type="text" value="${fila.nov2024}" onchange="actualizarDato(this.value, 'nov2024', '${domcodificado}')"></td></tr>`;
-                tablaHTML += `<tr><td>Dic 2024</td><td><input class="pago" type="text" value="${fila.dic2024}" onchange="actualizarDato(this.value, 'dic2024', '${domcodificado}')"></td></tr>`;
                 tablaHTML += `</table>`;
                 tablaHTML += `<button class="boton-eliminar" onclick="eliminarRegistro('${domcodificado}')">Eliminar</button>`;
                 tablaHTML += `</details></td>`;
