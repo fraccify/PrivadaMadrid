@@ -54,13 +54,11 @@
               <div class="calle-registrosss" id="caballeros-registrosss">
               </div>
             </details>
-            
             <details class="calle-boxss" id="calle-esmeraldass">
               <summary class="calle-title">Marmoles</summary>
               <div class="calle-registrosss" id="esmeralda-registrosss">
               </div>
             </details>
-            
             <details class="calle-boxss" id="calle-erosss">
               <summary class="calle-title">Gran via</summary>
               <div class="calle-registrosss" id="eros-registrosss">
@@ -71,7 +69,6 @@
               <div class="calle-registrosss" id="magdalena-registrosss">
               </div>
             </details>       
-            
           </div>
         </div>
       </div>
@@ -86,15 +83,20 @@
         <p>Tipo: <span id="tipo"></span></p>
         <p>ID: <span id="idUnico"></span></p>  
       </div>
+      <div class="refresh">
+        <button class="refresh-btn" type="submit">
+          Volver a Escanear
+        </button>
+      </div>
     </div> 
     <div id="contenedorhomerojo"   class="contenedorhomerojo" style="display: none;">
       <div class="datosrojo">
         <h1>QR invalido</h1>
-				<div id="cerrarsesion">	
-					<button type="submit" class="btn">
-						Cerrar Sesión
-					</button>
-				</div>      
+        <div class="refresh">
+          <button class="refresh-btn" type="submit">
+            Volver a Escanear
+          </button>
+        </div>   
       </div>
     </div>
     <div id="qryautilizado"   class="contenedorhomerojo" style="display: none;">
@@ -102,10 +104,20 @@
         <h1>Código QR ya utilizado para ingresar en caseta Madrid</h1>
         <h1>  No se puede volver a usar</h1>   
       </div>
+      <div class="refresh">
+        <button class="refresh-btn" type="submit">
+          Volver a Escanear
+        </button>
+      </div>
     </div>
     <div id="qrconotrafecha"   class="contenedorhomerojo" style="display: none;">
       <div class="datosrojo">
         <h1>La fecha del Código QR no corresponde al día de hoy</h1>
+      </div>
+      <div class="refresh">
+        <button class="refresh-btn" type="submit">
+          Volver a Escanear
+        </button>
       </div>
     </div>
     <audio id="audioScaner" src="assets/sonido.mp3"></audio>

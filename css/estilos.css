@@ -1304,3 +1304,12 @@ summary::before {
   margin: 0 auto;
   margin-bottom: 10px; /* Ajusta el valor según el espacio deseado */
 }
+
+.refresh{
+  padding: 20px 10px 10px;
+}
+
+.refresh-btn{
+  background-color: rgba(255, 255, 255, 0.583);
+  color: black;
+}

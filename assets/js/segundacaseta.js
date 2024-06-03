@@ -1,7 +1,6 @@
 const sheetID = "f0115907-7bd6-484a-b9be-a5e10b4fe3bd";
 const privada = "-madrid"
 
-
 // app.js
 
 const video = document.createElement("video");
@@ -9,13 +8,11 @@ const canvasElement = document.getElementById("qr-canvas");
 const canvas = canvasElement.getContext("2d");
 const divescaner = document.getElementById("inicio");
 const divverde = document.getElementById("contenedorhomeverde");
-const divrojo = document.getElementById("contenedorrojo");
+const divrojo = document.getElementById("contenedorhomerojo");
 const divrojoyauqr = document.getElementById("qryautilizado");
 const divqrconotrafecha = document.getElementById("qrconotrafecha");
 const btndcerrarsesion = document.getElementById("cerrarsesion");
-
-
-
+const botonregresar = document.getElementById("refresh");
 const btnScanQR = document.getElementById("btn-scan-qr");
 let scanning = false;
 
@@ -87,12 +84,13 @@ qrcode.callback = (respuesta) => {
       console.log(fechaHoy)
       console.log(Fecha)
 
-
       if (Fecha !== fechaHoy) {
         // La fecha del QR no es la de hoy
         divqrconotrafecha.style.display = "block";
         divescaner.style.display = "none";
         cerrarCamara();
+        activarSonido();
+
       } else {
         verificarConSheets(Casa, Fecha, Nombre, Tipo, ID); // Pass ID here
       }
@@ -126,6 +124,7 @@ const verificarConSheets = async (Casa, Nombre, Fecha, Tipo, id) => {
         // Ya hay un valor en ingresoc2
         divrojoyauqr.style.display = "block";
         divescaner.style.display = "none";
+        activarSonido();
       } else {
         // No hay valor en ingresoc2, se puede registrar
         const hoy = new Date();
@@ -147,13 +146,12 @@ const verificarConSheets = async (Casa, Nombre, Fecha, Tipo, id) => {
       }
     } else {
       // QR no válido
-      Swal.fire("Código QR no válido");
       divrojo.style.display = "block";
       divescaner.style.display = "none";
+      activarSonido();
     }
   } catch (error) {
     console.error("Error al verificar el código QR en Google Sheets", error);
-    Swal.fire("Error al verificar el código QR");
   }
 
   cerrarCamara();
@@ -275,11 +273,6 @@ document.addEventListener("DOMContentLoaded", function() {
       return fechaCompararObj && fechaCompararObj.toDateString() === fechaActual.toDateString();
   }
 
-  // Event listener para el clic en la página
-  document.addEventListener("click", function() {
-      obtenerYAgregarRegistros2();
-  });
-
   // Event listener para el clic en el elemento details
   const detalles = document.querySelectorAll("details");
   detalles.forEach(detalle => {
@@ -294,3 +287,18 @@ document.addEventListener("DOMContentLoaded", function() {
   obtenerYAgregarRegistros2();
 });
 
+
+function regresar() {
+  console.log("Regresando a pagina principal");
+  divrojoyauqr.style.display = "none";
+  divqrconotrafecha.style.display = "none";
+  divescaner.style.display = "block";
+  divverde.style.display = "none";
+  divrojo.style.display = "none";
+
+
+}
+
+document.querySelectorAll(".refresh-btn").forEach(button => {
+  button.addEventListener("click", regresar);
+});
