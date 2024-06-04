@@ -312,8 +312,8 @@
 						</div>	
 					</form>
 				</div>	
-				<div id="confirmacion" style="display: none;">
-					<div class="contenedor">
+				<div id="confirmacion" class="qrElementResidentes" style="display: none;">
+					<div class="datoscontenedor">
 						<p>Por favor confirma la información:</p>
 						<p></p>
 						<p></p>
@@ -337,19 +337,21 @@
 					</div>
 				</div>
 				<div id="divqr" style="display: none;">	
-					<div id="qrElement">
+					<div class="datosdelqr">
 						<p class="">Comparte este QR con: </p>
-							<p> </p>
-							<span class="titulo" id="namevisita3"></span>
-							<p> </p>
-							<span class="titulo" id="tipo3"></span>
-							<p> </p>
-							<span class="titulo" id="fechavisita3"></span>
-							<p> </p>
-							<span class="titulo" id="domdvisista"></span>
-							<p></p>
-							<p></p>
-							<p></p>
+						<p> </p>
+						<span class="titulo" id="namevisita3"></span>
+						<p> </p>
+						<span class="titulo" id="tipo3"></span>
+						<p> </p>
+						<span class="titulo" id="fechavisita3"></span>
+						<p> </p>
+						<span class="titulo" id="domdvisista"></span>
+					</div>
+					<div id="qrElement" class="qrElement">
+					</div>
+					<div class="copiarqr">
+						<button class="btn" id="copyQrButton">Copiar QR</button>
 					</div>	
 				</div>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
@@ -453,8 +455,15 @@
 		<div id="qrResdidentes" style="display: none;">
 			<div class="qrElementResidentes">
 				<button type="submit" id="generarqrdinamico" class="btn">Generar QR Dinamico</button>
-				<p class="">Este QR tiene una vigencia maxima de 2 horas, a partir del momento que se genero:</p>
-				<div id="qrElementResidentes"></div>	
+				<div>
+					<p class="">Este QR tiene una vigencia de 120 minutos, a partir del momento que se genero:</p>
+				</div>
+				<div>
+					<p id="temporizador">120:00</p>
+
+				</div>
+
+				<div class="contenedordelqrdinamico" id="qrElementResidentes"></div>	
 			</div>
 		</div>
 		<div id="botones"  style="display: none;">	

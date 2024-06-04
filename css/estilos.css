@@ -420,11 +420,7 @@ select:focus {
   outline: none;
 }
 
-#qrElement {
-  padding: 10px;
-  width: 300px;
-  margin: 0 auto;
-}
+
 
 #tiutlo2 {
   padding: 10px;
@@ -1232,7 +1228,7 @@ summary::before {
 
 .contenedorhomeverde {
   width: 370px;
-  height: 370px;
+  height: 390px;
   max-width: 370px;
   max-height: 90%;
   border-radius: 10px 10px 10px 10px;
@@ -1240,14 +1236,15 @@ summary::before {
   overflow: hidden;
   margin: 10px;
   left: 50%; /* Establece el 50% del ancho del viewport */
-  background: rgb(0, 200, 0);
-  min-height: 10vh;
+  background: rgb(0 200 0 / 36%);  min-height: 10vh;
   display: grid;
   margin: 10px; /* Agregar margen */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
   overflow: hidden;
   bottom: 10px;
   justify-content: center;
+  padding: 10px 10px 10px 10px;
+
 }
 
 .datosverde{
@@ -1268,7 +1265,7 @@ summary::before {
   overflow: hidden;
   margin: 10px;
   left: 50%; /* Establece el 50% del ancho del viewport */
-  background:red;
+  background:#ff000047;
   min-height: 10vh;
   display: grid;
   margin: 10px; /* Agregar margen */
@@ -1300,9 +1297,11 @@ summary::before {
 }
 .qrElementResidentes{
   padding: 10px;
-  width: 95%;
+  width: 85%;
   margin: 0 auto;
   margin-bottom: 10px; /* Ajusta el valor según el espacio deseado */
+  font-size: 12px;
+  padding: 10px ;
 }
 
 .refresh{
@@ -1312,4 +1311,99 @@ summary::before {
 .refresh-btn{
   background-color: rgba(255, 255, 255, 0.583);
   color: black;
+}
+
+.contenedorhomeazul {
+  width: 370px;
+  height: 370px;
+  max-width: 370px;
+  max-height: 90%;
+  border-radius: 10px 10px 10px 10px;
+  position: center;
+  overflow: hidden;
+  margin: 10px;
+  left: 50%; /* Establece el 50% del ancho del viewport */
+  background:rgba(39, 196, 249, 0.427);
+  min-height: 10vh;
+  display: grid;
+  margin: 10px; /* Agregar margen */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  bottom: 10px;
+  justify-content: center;
+  padding: 20px 20px 20px 20px;
+
+}
+
+.columna-izquierda5 {
+  width: 100%; /* Ajusta el ancho según tus necesidades */
+}
+.columna-izquierda5 img {
+  max-width: 100%; /* Asegura que la imagen no sobrepase su contenedor */
+}
+
+.row5 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column-reverse;
+}
+
+.header5 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.columna-izquierda6 {
+  width: 20%; /* Ajusta el ancho según tus necesidades */
+}
+.columna-izquierda6 img {
+  max-width: 100%; /* Asegura que la imagen no sobrepase su contenedor */
+}
+
+.contenedordelqrdinamico{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45vh; /* Ajusta la altura del contenedor */
+  background-color: #f0f0f0; /* Fondo opcional para visualizar el área del contenedor */
+}
+
+#temporizador {
+  font-size: 24px; /* Tamaño de la fuente */
+  color: var(--primario); /* Color del texto utilizando la variable --primario */
+  font-weight: bold; /* Hace el texto en negrita */
+  text-align: center; /* Centra el texto */
+  margin-top: 20px; /* Espacio superior */
+  margin-bottom: 20px; /* Espacio inferior */
+  padding: 10px; /* Espaciado interno */
+  border: 2px solid var(--primario); /* Borde del temporizador */
+  border-radius: 10px; /* Bordes redondeados */
+  background-color: #f3f3f3eb; /* Color de fondo */
+  width: 200px; /* Ancho del temporizador */
+  margin-left: auto; /* Centrará el div si tiene un ancho específico */
+  margin-right: auto; /* Centrará el div si tiene un ancho específico */
+  display: block; /* Asegura que el temporizador sea un bloque centrado */
+}
+
+#temporizador.expired {
+  color: red; /* Cambia el color del texto a rojo cuando el temporizador expira */
+  border-color: red; /* Cambia el color del borde a rojo cuando el temporizador expira */
+}
+
+.qrElement{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45vh; /* Ajusta la altura del contenedor */
+  background-color: #f0f0f0; /* Fondo opcional para visualizar el área del contenedor */
+}
+
+.datosdelqr{
+  padding: 15px; /* Espaciado interno */
+  color: black
+}
+
+.copiarqr{
+  padding: 10px;
 }

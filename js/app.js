@@ -674,7 +674,9 @@ formulario.addEventListener("submit", (e) => {
                                 console.log(idUnicoRes);
                             
                                 const qrDataResidentes = {
-                                    domicilio: domicilio,
+                                    Tipo: "QRResidente",
+                                    Nombre: propietario,
+                                    Casa: domicilio,
                                     Fecha: fechaHoraFormateada,
                                     ID: idUnicoRes,
                                 };
@@ -817,19 +819,25 @@ formulario.addEventListener("submit", (e) => {
                                     .then((response) => response.json())
                                     .then((data) => {
                                         // Alerta de éxito después de enviar los datos
-                                        alert("Tu solicitud para el ingreso de " + namevisitaSpan + " el " + fechavisitaSpan + " fue enviada");
+                                        alert("Tu solicitud para el ingreso de " + namevisitaSpan + " el " + fechavisitaSpan + " fue generada");
                                         
                                         // Generar el contenido para el QR
                                         const qrContent = JSON.stringify(qrData);
+
+                                        const qrElementClone = qrElement.cloneNode(true);
+
                                         
                                         // Generar el código QR y mostrarlo en la página
-                                        new QRCode(qrElement, qrContent);
+                                        new QRCode(qrElementClone, qrContent);
                                         
                                         // Obtener el contenedor donde se desea agregar el código QR
                                         const contenedorQR = document.getElementById('qrElement');
+
+                                        contenedorQR.innerHTML = "";
+
                                         
                                         // Agregar el código QR al contenedor
-                                        contenedorQR.appendChild(qrElement);
+                                        contenedorQR.appendChild(qrElementClone);
                             
                             
                                         // Llamar a las funciones para borrar elementos y regresar
@@ -1841,3 +1849,66 @@ function eliminarRegistro(domcodificado){
 function validarNumero(input) {
     input.value = input.value.replace(/\D/g, ''); // Eliminar caracteres que no sean dígitos
 }
+
+function mostrarDivSiEsHoraValida() {
+    const ahora = new Date();
+    const horas = ahora.getHours();
+    
+    // Verifica si la hora actual está entre las 11 PM y las 5 AM
+    if (horas >= 23 || horas < 5) {
+        document.getElementById('qrResdidentes').style.display = 'block';
+    } else {
+        document.getElementById('qrResdidentes').style.display = 'none';
+    }
+}
+
+function iniciarTemporizador(duracion, display) {
+    var timer = duracion, minutos, segundos;
+    var interval = setInterval(function () {
+        minutos = parseInt(timer / 60, 10);
+        segundos = parseInt(timer % 60, 10);
+
+        minutos = minutos < 10 ? "0" + minutos : minutos;
+        segundos = segundos < 10 ? "0" + segundos : segundos;
+
+        display.textContent = minutos + ":" + segundos;
+
+        if (--timer < 0) {
+            clearInterval(interval);
+            display.textContent = "EXPIRED";
+            display.classList.add('expired');
+            document.getElementById('qrElementResidentes').innerHTML = ''; // Borra el contenido del QR
+        }
+    }, 1000);
+}
+
+document.getElementById('generarqrdinamico').addEventListener('click', function () {
+    var duracion = 120 * 60; // Duración en segundos (120 minutos)
+    var display = document.getElementById('temporizador');
+    iniciarTemporizador(duracion, display);
+});
+
+
+
+
+
+document.getElementById("copyQrButton").addEventListener("click", async function() {
+    // Obtener la imagen del código QR
+    const qrImg = document.getElementById("qrElement").querySelector("img");
+
+    // Crear un blob de la imagen
+    const blob = await fetch(qrImg.src).then(response => response.blob());
+
+    // Copiar el blob al portapapeles
+    navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+
+    // Alertar al usuario que la imagen ha sido copiada
+    alert("QR Copiado");
+});
+
+
+
+
+
+// Ejecuta la función al cargar la página
+window.onload = mostrarDivSiEsHoraValida;

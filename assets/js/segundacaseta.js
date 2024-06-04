@@ -1,6 +1,7 @@
 const sheetID = "f0115907-7bd6-484a-b9be-a5e10b4fe3bd";
 const privada = "-madrid"
 
+
 // app.js
 
 const video = document.createElement("video");
@@ -12,7 +13,10 @@ const divrojo = document.getElementById("contenedorhomerojo");
 const divrojoyauqr = document.getElementById("qryautilizado");
 const divqrconotrafecha = document.getElementById("qrconotrafecha");
 const btndcerrarsesion = document.getElementById("cerrarsesion");
-const botonregresar = document.getElementById("refresh");
+const divazul = document.getElementById("contenedorhomeazul");
+
+
+
 const btnScanQR = document.getElementById("btn-scan-qr");
 let scanning = false;
 
@@ -66,7 +70,7 @@ qrcode.callback = (respuesta) => {
       const datosQR = JSON.parse(respuesta);
       const { Casa, Nombre, Fecha, Tipo, ID } = datosQR;
       console.log(
-        `Fecha: ${Fecha}, Nombre: ${Nombre}, Tipo: ${Tipo}, ID: ${ID}`
+        `Casa: ${Casa},Fecha: ${Fecha}, Nombre: ${Nombre}, Tipo: ${Tipo}, ID: ${ID}`
       );
 
       const obtenerFechaHoy = () => {
@@ -78,25 +82,137 @@ qrcode.callback = (respuesta) => {
         const partes = fecha.split('/');
         return `${partes[2]}-${partes[1]}-${partes[0]}`;
       };
-      const fechaHoy = formatearFecha(obtenerFechaHoy());
 
+      const fechaHoy = formatearFecha(obtenerFechaHoy());
       console.log("Validando fecha")
       console.log(fechaHoy)
       console.log(Fecha)
 
-      if (Fecha !== fechaHoy) {
+      if (Tipo === "QRResidente") {
+        console.log("Este es un QR Dinamico para Residentes");
+      
+        const obtenerFechaHoraActual = () => {
+          const hoy = new Date();
+          return hoy.toLocaleString('es-ES', {
+            timeZone: 'America/Mexico_City',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+          });
+        };
+      
+        const fechaHoraActual = obtenerFechaHoraActual();
+        console.log("Validando fecha");
+        console.log("Fecha del QR:", Fecha);
+        console.log("Fecha actual:", fechaHoraActual);
+      
+        // Función para convertir una fecha en formato 'DD/MM/YYYY, HH:MM:SS' a un objeto Date
+        const convertirFecha = (fechaStr) => {
+          const partes = fechaStr.split(", ");
+          const fechaPartes = partes[0].split("/");
+          const tiempoPartes = partes[1].split(":");
+      
+          const dia = parseInt(fechaPartes[0], 10);
+          const mes = parseInt(fechaPartes[1], 10) - 1; // Los meses en JavaScript son 0-indexados
+          const año = parseInt(fechaPartes[2], 10);
+      
+          const horas = parseInt(tiempoPartes[0], 10);
+          const minutos = parseInt(tiempoPartes[1], 10);
+          const segundos = parseInt(tiempoPartes[2], 10);
+      
+          return new Date(año, mes, dia, horas, minutos, segundos);
+        };
+      
+        // Convierte las cadenas de fecha y hora a objetos Date
+        const fechaQR = convertirFecha(Fecha);
+        const fechaActual = convertirFecha(fechaHoraActual);
+      
+        // Calcula la diferencia en minutos
+        const diferenciaMinutos = (fechaActual - fechaQR) / (1000 * 60);
+        console.log("Diferencia Minutos: ", diferenciaMinutos);
+      
+        if (diferenciaMinutos < 120) {
+          console.log("El código QR es válido, menos de 120 minutos de vigencia.");
+          activarSonido();
+      
+          const url = `https://sheet.best/api/sheets/${sheetID}/tabs/qrresidentes${privada}`;
+          fetch(url)
+            .then(response => response.json())
+            .then(async data => {
+              // Verificar si el registro existe en la hoja de cálculo
+              const registroIndex = data.findIndex((registro) => registro.idunico === ID);
+              console.log(registroIndex);
+      
+              if (registroIndex !== -1) {
+                const registro = data[registroIndex];
+                if (registro.ingresoc2) {
+                  // Ya hay un valor en ingresoc2
+                  divrojoyauqr.style.display = "block";
+                  divescaner.style.display = "none";
+
+
+                  activarSonido();
+                } else {
+                  // No hay valor en ingresoc2, se puede registrar
+                  const hoy = new Date();
+                  const fechaHoy = hoy.toISOString().split("T")[0];
+                  const horaHoy = hoy.toTimeString().split(" ")[0];
+                  console.log(`Índice del registro: ${registroIndex}`);
+                  await actualizarQRResidente(sheetID, registroIndex, fechaHoy, horaHoy);
+      
+                  document.getElementById("domres").innerText = Casa;
+                  document.getElementById("nomres").innerText = Nombre;
+                  document.getElementById("idUnicores").innerText = ID;
+      
+                  divescaner.style.display = "none";
+                  divverde.style.display = "none";
+                  divazul.style.display = "block";
+
+                  console.log("El residente puede pasar")
+      
+                  activarSonido();
+                }
+              } else {
+                // QR no válido
+                divrojo.style.display = "block";
+                divescaner.style.display = "none";
+                activarSonido();
+              }
+            })
+            .catch(error => {
+              console.error("Error al verificar el código QR en Google Sheets", error);
+              Swal.fire("Error al verificar el código QR");
+              activarSonido();
+              cerrarCamara();
+            });
+      
+        } else {
+          divrojo.style.display = "block";
+          divescaner.style.display = "none";
+          activarSonido();
+        }
+      }
+      
+      
+      else if (Fecha !== fechaHoy) {
         // La fecha del QR no es la de hoy
         divqrconotrafecha.style.display = "block";
         divescaner.style.display = "none";
-        cerrarCamara();
         activarSonido();
 
+        cerrarCamara();
       } else {
         verificarConSheets(Casa, Fecha, Nombre, Tipo, ID); // Pass ID here
       }
     } catch (error) {
       console.error("Error al parsear el código QR", error);
       Swal.fire("Error al leer el código QR");
+      activarSonido();
+
       cerrarCamara();
     }
   }
@@ -124,7 +240,6 @@ const verificarConSheets = async (Casa, Nombre, Fecha, Tipo, id) => {
         // Ya hay un valor en ingresoc2
         divrojoyauqr.style.display = "block";
         divescaner.style.display = "none";
-        activarSonido();
       } else {
         // No hay valor en ingresoc2, se puede registrar
         const hoy = new Date();
@@ -149,13 +264,39 @@ const verificarConSheets = async (Casa, Nombre, Fecha, Tipo, id) => {
       divrojo.style.display = "block";
       divescaner.style.display = "none";
       activarSonido();
+
     }
   } catch (error) {
     console.error("Error al verificar el código QR en Google Sheets", error);
+    Swal.fire("Error al verificar el código QR");
   }
+  activarSonido();
 
   cerrarCamara();
 };
+
+const actualizarQRResidente = async (sheetID, rowIndex, fecha, hora) => {
+  const url = `https://sheet.best/api/sheets/${sheetID}/tabs/qrresidentes${privada}/${rowIndex}`;
+
+  const opciones = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ingresoc2: `${fecha} ${hora}` }),
+  };
+
+  try {
+    const response = await fetch(url, opciones);
+    if (!response.ok) {
+      throw new Error("Error al actualizar la hoja de cálculo");
+    }
+  } catch (error) {
+    console.error("Error al actualizar la hoja de cálculo", error);
+    Swal.fire("Error al actualizar la hoja de cálculo");
+  }
+};
+
 
 const actualizarIngreso = async (sheetID, rowIndex, fecha, hora) => {
   const url = `https://sheet.best/api/sheets/${sheetID}/tabs/visitas${privada}/${rowIndex}`;
@@ -179,6 +320,22 @@ const actualizarIngreso = async (sheetID, rowIndex, fecha, hora) => {
   }
 };
 
+function regresar() {
+  console.log("Regresando a pagina principal");
+  divrojoyauqr.style.display = "none";
+  divqrconotrafecha.style.display = "none";
+  divescaner.style.display = "block";
+  divverde.style.display = "none";
+  divrojo.style.display = "none";
+  divazul.style.display = "none";
+
+  scan()
+  tick()
+}
+
+document.querySelectorAll(".refresh-btn").forEach(button => {
+  button.addEventListener("click", regresar);
+});
 
 document.addEventListener("DOMContentLoaded", function() {
   // Variable para almacenar los idunico ya agregados
@@ -285,20 +442,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Llamar a las funciones una vez al cargar la página para cargar los registros iniciales
   obtenerYAgregarRegistros2();
-});
-
-
-function regresar() {
-  console.log("Regresando a pagina principal");
-  divrojoyauqr.style.display = "none";
-  divqrconotrafecha.style.display = "none";
-  divescaner.style.display = "block";
-  divverde.style.display = "none";
-  divrojo.style.display = "none";
-
-
-}
-
-document.querySelectorAll(".refresh-btn").forEach(button => {
-  button.addEventListener("click", regresar);
 });

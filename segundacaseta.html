@@ -13,9 +13,17 @@
       <div class="contenedorcamaraybotones">
         <div class="col-sm-4 shadow p-3">
           <div class="camaraqr">
-            <h1 class="titulo">Escanear codigo QR</h1>
-            <h1 class="titulo">Caseta Madrid</h1>
-
+            <div>
+              <div class="row5">
+                <div class="header">
+                  <h2 class="titulo">Caseta Madrid</h2>
+                  <p>Escanear codigo QR</p>
+                </div>
+                <div class="columna-izquierda6">
+                  <img src="Fraccify.png" alt="Descripción de la imagen">
+                </div>
+              </div>
+            </div>
             <a id="btn-scan-qr" href="#">
               <img
                 src="FraccifyQR.png"
@@ -74,14 +82,21 @@
       </div>
     </div>
     <div id="contenedorhomeverde" class="contenedorhomeverde" style="display: none;">
-      <div class="datosverde">
-        <h1>Acceso Caseta Madrid</h1>
-        <h1>Puede pasar</h1>
-        <p>Domicilio: <span id="dom"></span></p>
-        <p>Nombre Visita: <span id="nom"></span></p>
-        <p>Fecha: <span id="fecha"></span></p>
-        <p>Tipo: <span id="tipo"></span></p>
-        <p>ID: <span id="idUnico"></span></p>  
+      <div class="row1">
+        <div class="header">
+          <div class="datosverde">
+            <h1>Puede pasar</h1>
+            <p>Domicilio: <span id="dom" class="titulo"></span></p>
+            <p>Nombre Visita: <span id="nom" class="titulo"></span></p>
+            <p>Fecha: <span id="fecha" class="titulo"></span></p>
+            <p>Tipo: <span id="tipo" class="titulo"></span></p>
+            <p>ID: <span id="idUnico" class="titulo"></span></p>  
+          </div>
+        </div>
+        <div class="columna-izquierda4">
+          <img src="Fraccify.png" alt="Descripción de la imagen">
+          <img src="Palomita-PNG.png" alt="Descripción de la imagen">
+        </div>
       </div>
       <div class="refresh">
         <button class="refresh-btn" type="submit">
@@ -90,34 +105,80 @@
       </div>
     </div> 
     <div id="contenedorhomerojo"   class="contenedorhomerojo" style="display: none;">
-      <div class="datosrojo">
-        <h1>QR invalido</h1>
-        <div class="refresh">
-          <button class="refresh-btn" type="submit">
-            Volver a Escanear
-          </button>
-        </div>   
+      <div class="row1">
+        <div class="header">
+          <div class="datosrojo">
+            <h1>QR invalido</h1> 
+          </div>
+          <div class="refresh">
+            <button class="refresh-btn" type="submit">
+              Volver a Escanear
+            </button>
+          </div>
+        </div>
+        <div class="columna-izquierda5">
+          <img src="Fraccify.png" alt="Descripción de la imagen">
+          <img src="X-Png-13.png" alt="Descripción de la imagen">
+        </div>
       </div>
     </div>
     <div id="qryautilizado"   class="contenedorhomerojo" style="display: none;">
-      <div class="datosrojo">
-        <h1>Código QR ya utilizado para ingresar en caseta Madrid</h1>
-        <h1>  No se puede volver a usar</h1>   
-      </div>
-      <div class="refresh">
-        <button class="refresh-btn" type="submit">
-          Volver a Escanear
-        </button>
+      <div class="row1">
+        <div class="header">
+          <div class="datosrojo">
+            <h1 class="sinacceso">Sin Acceso</h1>
+            <p1>Código QR ya utilizado para ingresar en caseta Madrid</p1>
+            <p1>  No se puede volver a usar</p1>   
+          </div>
+          <div class="refresh">
+            <button class="refresh-btn" type="submit">
+              Volver a Escanear
+            </button>
+          </div>
+        </div>
+        <div class="columna-izquierda5">
+          <img src="Fraccify.png" alt="Descripción de la imagen">
+          <img src="X-Png-13.png" alt="Descripción de la imagen">
+        </div>
       </div>
     </div>
     <div id="qrconotrafecha"   class="contenedorhomerojo" style="display: none;">
-      <div class="datosrojo">
-        <h1>La fecha del Código QR no corresponde al día de hoy</h1>
+      <div class="row1">
+        <div class="header">
+          <div class="datosrojo">
+            <h1 class="sinacceso">Sin Acceso</h1>
+            <p>La fecha del Código QR no corresponde al día de hoy</p>
+          </div>
+          <div class="refresh">
+            <button class="refresh-btn" type="submit">
+              Volver a Escanear
+            </button>
+          </div>
+        </div>
+        <div class="columna-izquierda5">
+          <img src="Fraccify.png" alt="Descripción de la imagen">
+          <img src="X-Png-13.png" alt="Descripción de la imagen">
+        </div>
       </div>
-      <div class="refresh">
-        <button class="refresh-btn" type="submit">
-          Volver a Escanear
-        </button>
+    </div>
+    <div id="contenedorhomeazul" class="contenedorhomeazul" style="display: none;">
+      <div class="row1">
+        <div class="header">
+          <div class="datosazul">
+            <h1>Acceso Dinamico Residente</h1>
+            <h4>Puede pasar el residente</h4>
+            <p>Domicilio: <span id="domres"></span></p>
+            <p>Nombre Residente: <span id="nomres"></span></p>
+            <p>ID: <span id="idUnicores"></span></p>  
+          </div>
+          <button class="refresh-btn" type="submit">
+            Volver a Escanear
+          </button>
+        </div>
+        <div class="columna-izquierda4">
+          <img src="Fraccify.png" alt="Descripción de la imagen">
+          <img src="Palomita-PNG.png" alt="Descripción de la imagen">
+        </div>
       </div>
     </div>
     <audio id="audioScaner" src="assets/sonido.mp3"></audio>
