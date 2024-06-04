@@ -675,7 +675,7 @@ formulario.addEventListener("submit", (e) => {
                             
                                 const qrDataResidentes = {
                                     Tipo: "QRResidente",
-                                    Nombre: propietario,
+                                    domicilio: propietario,
                                     Casa: domicilio,
                                     Fecha: fechaHoraFormateada,
                                     ID: idUnicoRes,
