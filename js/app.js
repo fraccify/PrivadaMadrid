@@ -1892,19 +1892,31 @@ document.getElementById('generarqrdinamico').addEventListener('click', function 
 
 
 
-document.getElementById("copyQrButton").addEventListener("click", async function() {
+document.getElementById("downloadQrButton").addEventListener("click", async function() {
     // Obtener la imagen del código QR
     const qrImg = document.getElementById("qrElement").querySelector("img");
 
     // Crear un blob de la imagen
     const blob = await fetch(qrImg.src).then(response => response.blob());
 
-    // Copiar el blob al portapapeles
-    navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+    // Crear un objeto URL para la imagen
+    const imageUrl = URL.createObjectURL(blob);
 
-    // Alertar al usuario que la imagen ha sido copiada
-    alert("QR Copiado");
+    // Crear un enlace de descarga
+    const downloadLink = document.createElement("a");
+    downloadLink.href = imageUrl;
+    downloadLink.download = "codigo_qr.png"; // Nombre de archivo para la descarga
+
+    // Simular un clic en el enlace de descarga
+    downloadLink.click();
+
+    // Liberar el objeto URL creado
+    URL.revokeObjectURL(imageUrl);
+
+    // Alertar al usuario que la imagen ha sido descargada
+    alert("La imagen del código QR ha sido descargada.");
 });
+
 
 
 
