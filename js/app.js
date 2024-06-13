@@ -816,7 +816,6 @@ formulario.addEventListener("submit", (e) => {
                                     .then((response) => response.json())
                                     .then((data) => {
                                         // Alerta de éxito después de enviar los datos
-                                        alert("Tu solicitud para el ingreso de " + namevisitaSpan + " el " + fechavisitaSpan + " fue generada");
                                         
                                         // Generar el contenido para el QR
                                         const qrContent = JSON.stringify(qrData);
@@ -1889,96 +1888,104 @@ document.getElementById('generarqrdinamico').addEventListener('click', function 
 
 
 document.getElementById("downloadQrButton").addEventListener("click", async function() {
-    // Usar html2canvas para tomar una captura de pantalla del cuerpo del documento
-    html2canvas(document.body).then(async canvas => {
-        // Convertir el canvas a una imagen en formato blob con tipo MIME explícito
-        canvas.toBlob(async function(blob) {
-            // Crear un objeto URL para la imagen
+    const qrElement = document.getElementById("qrElement");
+    html2canvas(qrElement).then(canvas => {
+        canvas.toBlob(function(blob) {
             const imageUrl = URL.createObjectURL(blob);
-
-            // Crear un enlace de descarga
             const downloadLink = document.createElement("a");
             downloadLink.href = imageUrl;
-            downloadLink.download = "captura_pantalla.png"; // Nombre de archivo para la descarga
-
-            // Simular un clic en el enlace de descarga
+            downloadLink.download = "captura_pantalla.png";
             downloadLink.click();
-
-            // Liberar el objeto URL creado
             URL.revokeObjectURL(imageUrl);
-
-            // Alertar al usuario que la imagen ha sido descargada
-
-        }, 'image/png'); // Tipo MIME explícito
+        }, 'image/png');
     });
 });
 
-
 document.getElementById("compartirQrButton").addEventListener("click", async function() {
-    // Obtener la imagen del código QR
-    const domicilio = domicilioSpan.textContent;
-    const propietario = propietarioSpan.textContent;
+    alert("Botón clickeado!");
+
+    const domicilio = document.getElementById("domicilio").textContent;
+    const propietario = document.getElementById("propietario").textContent;
     const namevisitaSpan = document.getElementById("namevisita").value;
     const fechavisitaSpan = document.getElementById("fechavisita").value;
-    const qrImg = document.getElementById("qrElement").querySelector("img");
-    const longUrl = qrImg.src;
+    alert(`Datos obtenidos: ${namevisitaSpan}, ${fechavisitaSpan}, ${domicilio}, ${propietario}`);
 
-    // Función para subir la imagen a imgbb
-    async function uploadToImgbb(imageBase64) {
-        const formData = new FormData();
-        formData.append("image", imageBase64.split(',')[1]); // Remove the data:image/png;base64, part
+    const qrElement = document.getElementById("qrElement");
+    html2canvas(qrElement).then(async canvas => {
+        canvas.toBlob(async function(blob) {
+            try {
+                const imgbbUrl = await uploadToImgbb(blob);
+                alert(`Imagen subida a imgbb: ${imgbbUrl}`);
 
+                const shortUrl = await shortenUrl(imgbbUrl);
+                alert(`URL acortada: ${shortUrl}`);
+
+                const whatsappMessage1 = `Hola ${namevisitaSpan}`;
+                const whatsappMessage2 = `El residente ${propietario} te ha autorizado un acceso para su domicilio ${domicilio} para el ${fechavisitaSpan}`;
+                const whatsappMessage3 = `Muestra este QR a seguridad: ${shortUrl}`;
+                const whatsappMessage4 = `Ubicación: https://maps.app.goo.gl/qkmrJGqddaJZp36r8`;
+
+                const whatsappMessage = `${whatsappMessage1}\n\n${whatsappMessage2}\n\n${whatsappMessage3}\n\n${whatsappMessage4}`;
+
+                const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`;
+                //alert(`WhatsApp URL: ${whatsappUrl}`);
+
+                //const whatsappApiUrl = isMobile ? whatsappUrl.replace('api', 'wa') : whatsappUrl;
+
+                //alert(`WhatsApp API URL: ${whatsappApiUrl}`);
+
+                window.open(whatsappUrl, "_blank");
+            } catch (error) {
+                alert(`Hubo un error al procesar la imagen: ${error.message}`);
+                console.error("Error al procesar la imagen:", error);
+            }
+        }, 'image/png');
+    });
+});
+
+async function uploadToImgbb(blob) {
+    alert("Subiendo imagen a imgbb...");
+    const formData = new FormData();
+    formData.append("image", blob);
+
+    try {
         const response = await fetch("https://api.imgbb.com/1/upload?key=7d47376285c786ea70e448881a02adf9", {
             method: "POST",
             body: formData
         });
 
-        const data = await response.json();
+        const responseText = await response.text();
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status} - ${responseText}`);
         }
+
+        const data = JSON.parse(responseText);
+        alert("Imagen subida!");
         return data.data.url;
-    }
-
-    // Función para acortar la URL utilizando TinyURL sin autenticación
-    async function shortenUrl(url) {
-        const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`);
-        const shortUrl = await response.text();
-        return shortUrl;
-    }
-
-    try {
-        // Subir la imagen a imgbb
-        const imgbbUrl = await uploadToImgbb(longUrl);
-
-        // Acortar la URL del código QR subida a imgbb
-        const shortUrl = await shortenUrl(imgbbUrl);
-
-        // Generar enlace de WhatsApp para compartir incluyendo la URL acortada del QR
-        // Generar los mensajes de WhatsApp
-        const whatsappMessage1 = `Hola ${namevisitaSpan}`;
-        const whatsappMessage2 = `El residente ${propietario} te ha autorizado un acceso para su domicilio ${domicilio} para el ${fechavisitaSpan}`;
-        const whatsappMessage3 = `Muestra este QR a seguridad: ${shortUrl}`;
-        const whatsappMessage4 = `Ubicación:https://maps.app.goo.gl/qkmrJGqddaJZp36r8`;
-
-        // Concatenar los mensajes con saltos de línea
-        const whatsappMessage = `${whatsappMessage1}\n\n${whatsappMessage2}\n\n${whatsappMessage3}\n\n${whatsappMessage4}`;
-
-        // Generar el enlace de WhatsApp
-        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`;
-
-
-        // Abrir WhatsApp con el mensaje predefinido
-        window.open(whatsappUrl, "_blank");
     } catch (error) {
-        alert("Hubo un error al procesar la imagen. Por favor, inténtalo de nuevo más tarde.");
-        console.error("Error al procesar la imagen:", error);
+        alert(`Error al subir la imagen: ${error.message}`);
+        console.error("Error al subir la imagen:", error);
+        throw error;
     }
-});
+}
 
-
-
-
+async function shortenUrl(url) {
+    alert(`Acortando URL: ${url}`);
+    try {
+        const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`);
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+        }
+        const shortUrl = await response.text();
+        alert(`URL acortada: ${shortUrl}`);
+        return shortUrl;
+    } catch (error) {
+        alert(`Error al acortar la URL: ${error.message}`);
+        console.error("Error al acortar la URL:", error);
+        throw error;
+    }
+}
 
 
 // Ejecuta la función al cargar la página
