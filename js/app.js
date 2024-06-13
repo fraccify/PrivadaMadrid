@@ -1935,7 +1935,7 @@ document.getElementById("compartirQrButton").addEventListener("click", async fun
 
                 //alert(`WhatsApp API URL: ${whatsappApiUrl}`);
 
-                window.open(whatsappApiUrl, "_blank");
+                window.open(whatsappUrl, "_blank");
             } catch (error) {
                 alert(`Hubo un error al procesar la imagen: ${error.message}`);
                 console.error("Error al procesar la imagen:", error);
