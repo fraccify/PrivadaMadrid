@@ -1236,7 +1236,7 @@ summary::before {
   overflow: hidden;
   margin: 10px;
   left: 50%; /* Establece el 50% del ancho del viewport */
-  background: rgb(0 200 0 / 36%);  min-height: 10vh;
+  background: green;
   display: grid;
   margin: 10px; /* Agregar margen */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
@@ -1265,7 +1265,7 @@ summary::before {
   overflow: hidden;
   margin: 10px;
   left: 50%; /* Establece el 50% del ancho del viewport */
-  background:#ff000047;
+  background: red;
   min-height: 10vh;
   display: grid;
   margin: 10px; /* Agregar margen */
@@ -1323,7 +1323,7 @@ summary::before {
   overflow: hidden;
   margin: 10px;
   left: 50%; /* Establece el 50% del ancho del viewport */
-  background:rgba(39, 196, 249, 0.427);
+  background:green;
   min-height: 10vh;
   display: grid;
   margin: 10px; /* Agregar margen */

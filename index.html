@@ -351,7 +351,15 @@
 					<div id="qrElement" class="qrElement">
 					</div>
 					<div class="copiarqr">
-						<button class="btn" id="downloadQrButton">Copiar QR</button>
+						<button class="btn" id="downloadQrButton">Descargar QR</button>
+					</div>
+					<div class="copiarqr">
+						<button class="btn" id="compartirQrButton">Compartir por WA</button>
+					</div>
+					<div id="nuevoregistro" class="copiarqr">	
+						<button type="submit" class="btn" onclick="nuevoregistro()">
+							Nuevo registro
+						</button>
 					</div>	
 				</div>
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
@@ -505,13 +513,6 @@
 				<div id="cerrarsesion">	
 					<button type="submit" class="btn">
 						Cerrar Sesión
-					</button>
-				</div>
-			</div>
-			<div class="contenedor2 button-container">
-				<div id="nuevoregistro" style="display: none;">	
-					<button type="submit" class="btn" onclick="nuevoregistro()">
-						Nuevo registro
 					</button>
 				</div>
 			</div>
@@ -706,7 +707,9 @@
 	<script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 	<script src="js/app.js"></script>
+
 </body>
 </html>
   

@@ -65,7 +65,7 @@ const fechavisita3Span = document.getElementById("fechavisita3");
 const domdvisistaSpan = document.getElementById("domdvisista");
 const divpagocargado = document.getElementById("pagocargado");
 const divseguridad = document.getElementById("seguridad");
-const sheetID = "f0115907-7bd6-484a-b9be-a5e10b4fe3bd";
+const sheetID = "2446d2ec-116c-4cb7-ac3c-150fd6be2066";
 const privada = "-madrid"
 const divqrResdidentes = document.getElementById("qrResdidentes");
 const botonqrdinamicoresidentes = document.getElementById("qrdinamicoresidentes");
@@ -622,7 +622,6 @@ formulario.addEventListener("submit", (e) => {
                             }
                             function nuevoregistro(){
                                 divqr.style.display = "none";
-                                divnuevoregistro.style.display = "none";
                                 paymentHistory2024.style.display = "none";
                                 tags.style.display = "block";
                                 btndcerrarsesion.style.display = "block"
@@ -633,7 +632,6 @@ formulario.addEventListener("submit", (e) => {
 
                                 divingresos.style.display = "none";
                                 segurichat.style.display = "none";
-                                divnuevoregistro.style.display = "none";
                                 divamenidades.style.display = "none";
                                 borrarElementos();
                             }
@@ -746,7 +744,6 @@ formulario.addEventListener("submit", (e) => {
                                 confirmacion.style.display = "none";
                                 divqr.style.display = "block";  
                                 datoscorrectosvisitas.style.display = "block"; 
-                                divnuevoregistro.style.display = "block";
                                 divregreso.style.display = "block";
                                 const domicilio = domicilioSpan.textContent;
                                 const propietario = propietarioSpan.textContent;
@@ -848,6 +845,8 @@ formulario.addEventListener("submit", (e) => {
                                         console.error("Error al enviar los datos a la hoja de cálculo", error);
                                     });
                                 timer = setTimeout(activarBoton, tiempoEspera);
+
+
                             }
 
 
@@ -1073,7 +1072,6 @@ formulario.addEventListener("submit", (e) => {
                                 divingresos.style.display = "none";
                                 segurichat.style.display = "block";
                                 botonqrdinamicoresidentes.style.display = "block";
-                                divnuevoregistro.style.display = "none";
                                 divamenidades.style.display = "none";
                                 divreservar.style.display = "none";
                                 divpagos.style.display = "none";
@@ -1890,31 +1888,92 @@ document.getElementById('generarqrdinamico').addEventListener('click', function 
 
 
 
-
-
 document.getElementById("downloadQrButton").addEventListener("click", async function() {
+    // Usar html2canvas para tomar una captura de pantalla del cuerpo del documento
+    html2canvas(document.body).then(async canvas => {
+        // Convertir el canvas a una imagen en formato blob con tipo MIME explícito
+        canvas.toBlob(async function(blob) {
+            // Crear un objeto URL para la imagen
+            const imageUrl = URL.createObjectURL(blob);
+
+            // Crear un enlace de descarga
+            const downloadLink = document.createElement("a");
+            downloadLink.href = imageUrl;
+            downloadLink.download = "captura_pantalla.png"; // Nombre de archivo para la descarga
+
+            // Simular un clic en el enlace de descarga
+            downloadLink.click();
+
+            // Liberar el objeto URL creado
+            URL.revokeObjectURL(imageUrl);
+
+            // Alertar al usuario que la imagen ha sido descargada
+
+        }, 'image/png'); // Tipo MIME explícito
+    });
+});
+
+
+document.getElementById("compartirQrButton").addEventListener("click", async function() {
     // Obtener la imagen del código QR
+    const domicilio = domicilioSpan.textContent;
+    const propietario = propietarioSpan.textContent;
+    const namevisitaSpan = document.getElementById("namevisita").value;
+    const fechavisitaSpan = document.getElementById("fechavisita").value;
     const qrImg = document.getElementById("qrElement").querySelector("img");
+    const longUrl = qrImg.src;
 
-    // Crear un blob de la imagen
-    const blob = await fetch(qrImg.src).then(response => response.blob());
+    // Función para subir la imagen a imgbb
+    async function uploadToImgbb(imageBase64) {
+        const formData = new FormData();
+        formData.append("image", imageBase64.split(',')[1]); // Remove the data:image/png;base64, part
 
-    // Crear un objeto URL para la imagen
-    const imageUrl = URL.createObjectURL(blob);
+        const response = await fetch("https://api.imgbb.com/1/upload?key=7d47376285c786ea70e448881a02adf9", {
+            method: "POST",
+            body: formData
+        });
 
-    // Crear un enlace de descarga
-    const downloadLink = document.createElement("a");
-    downloadLink.href = imageUrl;
-    downloadLink.download = "codigo_qr.png"; // Nombre de archivo para la descarga
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return data.data.url;
+    }
 
-    // Simular un clic en el enlace de descarga
-    downloadLink.click();
+    // Función para acortar la URL utilizando TinyURL sin autenticación
+    async function shortenUrl(url) {
+        const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`);
+        const shortUrl = await response.text();
+        return shortUrl;
+    }
 
-    // Liberar el objeto URL creado
-    URL.revokeObjectURL(imageUrl);
+    try {
+        // Subir la imagen a imgbb
+        const imgbbUrl = await uploadToImgbb(longUrl);
 
-    // Alertar al usuario que la imagen ha sido descargada
-    alert("La imagen del código QR ha sido descargada.");
+        // Acortar la URL del código QR subida a imgbb
+        const shortUrl = await shortenUrl(imgbbUrl);
+
+        // Generar enlace de WhatsApp para compartir incluyendo la URL acortada del QR
+        // Generar los mensajes de WhatsApp
+        const whatsappMessage1 = `Hola ${namevisitaSpan}`;
+        const whatsappMessage2 = `El residente ${propietario} te ha autorizado un acceso para su domicilio ${domicilio} para el ${fechavisitaSpan}`;
+        const whatsappMessage3 = `Muestra este QR a seguridad: ${shortUrl}`;
+        const whatsappMessage4 = `Ubicación:https://maps.app.goo.gl/qkmrJGqddaJZp36r8`;
+
+        // Concatenar los mensajes con saltos de línea
+        const whatsappMessage = `${whatsappMessage1}\n\n${whatsappMessage2}\n\n${whatsappMessage3}\n\n${whatsappMessage4}`;
+
+        // Generar el enlace de WhatsApp
+        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`;
+
+
+        // Abrir WhatsApp con el mensaje predefinido
+        window.open(whatsappUrl, "_blank");
+    } catch (error) {
+        alert("Hubo un error al procesar la imagen. Por favor, inténtalo de nuevo más tarde.");
+        console.error("Error al procesar la imagen:", error);
+    }
 });
 
 
