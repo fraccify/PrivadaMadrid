@@ -1902,23 +1902,23 @@ document.getElementById("downloadQrButton").addEventListener("click", async func
 });
 
 document.getElementById("compartirQrButton").addEventListener("click", async function() {
-    alert("Botón clickeado!");
+    //alert("Botón clickeado!");
 
     const domicilio = document.getElementById("domicilio").textContent;
     const propietario = document.getElementById("propietario").textContent;
     const namevisitaSpan = document.getElementById("namevisita").value;
     const fechavisitaSpan = document.getElementById("fechavisita").value;
-    alert(`Datos obtenidos: ${namevisitaSpan}, ${fechavisitaSpan}, ${domicilio}, ${propietario}`);
+    //alert(`Datos obtenidos: ${namevisitaSpan}, ${fechavisitaSpan}, ${domicilio}, ${propietario}`);
 
     const qrElement = document.getElementById("qrElement");
     html2canvas(qrElement).then(async canvas => {
         canvas.toBlob(async function(blob) {
             try {
                 const imgbbUrl = await uploadToImgbb(blob);
-                alert(`Imagen subida a imgbb: ${imgbbUrl}`);
+                //alert(`Imagen subida a imgbb: ${imgbbUrl}`);
 
                 const shortUrl = await shortenUrl(imgbbUrl);
-                alert(`URL acortada: ${shortUrl}`);
+                //alert(`URL acortada: ${shortUrl}`);
 
                 const whatsappMessage1 = `Hola ${namevisitaSpan}`;
                 const whatsappMessage2 = `El residente ${propietario} te ha autorizado un acceso para su domicilio ${domicilio} para el ${fechavisitaSpan}`;
@@ -1930,11 +1930,12 @@ document.getElementById("compartirQrButton").addEventListener("click", async fun
                 const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`;
                 //alert(`WhatsApp URL: ${whatsappUrl}`);
 
-                //const whatsappApiUrl = isMobile ? whatsappUrl.replace('api', 'wa') : whatsappUrl;
+                const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                const whatsappApiUrl = isMobile ? whatsappUrl.replace('api.whatsapp.com', 'wa.me') : whatsappUrl;
 
                 //alert(`WhatsApp API URL: ${whatsappApiUrl}`);
 
-                window.open(whatsappUrl, "_blank");
+                window.open(whatsappApiUrl, "_blank");
             } catch (error) {
                 alert(`Hubo un error al procesar la imagen: ${error.message}`);
                 console.error("Error al procesar la imagen:", error);
@@ -1944,7 +1945,7 @@ document.getElementById("compartirQrButton").addEventListener("click", async fun
 });
 
 async function uploadToImgbb(blob) {
-    alert("Subiendo imagen a imgbb...");
+    //alert("Subiendo imagen a imgbb...");
     const formData = new FormData();
     formData.append("image", blob);
 
@@ -1960,17 +1961,17 @@ async function uploadToImgbb(blob) {
         }
 
         const data = JSON.parse(responseText);
-        alert("Imagen subida!");
+        //alert("Imagen subida!");
         return data.data.url;
     } catch (error) {
-        alert(`Error al subir la imagen: ${error.message}`);
+        //alert(`Error al subir la imagen: ${error.message}`);
         console.error("Error al subir la imagen:", error);
         throw error;
     }
 }
 
 async function shortenUrl(url) {
-    alert(`Acortando URL: ${url}`);
+    //alert(`Acortando URL: ${url}`);
     try {
         const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`);
         if (!response.ok) {
@@ -1978,10 +1979,10 @@ async function shortenUrl(url) {
             throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
         }
         const shortUrl = await response.text();
-        alert(`URL acortada: ${shortUrl}`);
+        //alert(`URL acortada: ${shortUrl}`);
         return shortUrl;
     } catch (error) {
-        alert(`Error al acortar la URL: ${error.message}`);
+        //alert(`Error al acortar la URL: ${error.message}`);
         console.error("Error al acortar la URL:", error);
         throw error;
     }
