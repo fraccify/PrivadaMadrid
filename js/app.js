@@ -652,6 +652,7 @@ formulario.addEventListener("submit", (e) => {
                                 if (boton4.disabled) {
                                     return; // Evitar ejecutar la función si ya está en curso
                                 }
+                                const ahora = new Date();                                
                                 const domicilio = domicilioSpan.textContent;
                                 const propietario = propietarioSpan.textContent;
                                 const fechaHoraActual = new Date();
@@ -670,71 +671,70 @@ formulario.addEventListener("submit", (e) => {
                                 const domicilioAbreviado = domicilio.slice(0, 2).toUpperCase();
                                 const idUnicoRes = `${propietarioAbreviado}${domicilioAbreviado}${dia}${mes}${año}${horas}${minutos}`;
                                 console.log(idUnicoRes);
-                            
-                                const qrDataResidentes = {
-                                    Tipo: "QRResidente",
-                                    domicilio: propietario,
-                                    Casa: domicilio,
-                                    Fecha: fechaHoraFormateada,
-                                    ID: idUnicoRes,
-                                };
-                            
-                                const datos = {
-                                    propietario: clientecod,
-                                    domicilio: domiciliocod,
-                                    fecha: fechaHoraFormateada,
-                                    fechaHoraRegistro: fechaHoraFormateada,
-                                    idunico: idUnicoRes,
-                                };
-                            
-                                const url = `https://sheet.best/api/sheets/${sheetID}/tabs/qrresidentes${privada}`;
-                            
-                                const opciones = {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify(datos)
-                                };
-                            
-                                // Enviar los datos a la hoja de cálculo
-                                fetch(url, opciones)
-                                    .then((response) => response.json())
-                                    .then((data) => {
-                                        // Alerta de éxito después de enviar los datos
-                                        // Generar el contenido para el QR
-                                        const qrContentRes = JSON.stringify(qrDataResidentes);
-                            
-                                        // Obtener el contenedor donde se desea agregar el código QR
-                                        const contenedorQR = document.getElementById('qrElementResidentes');
-                            
-                                        // Limpiar el contenido anterior del contenedor
-                                        contenedorQR.innerHTML = '';
-                            
-                                        // Generar el código QR y mostrarlo en la página
-                                        new QRCode(contenedorQR, qrContentRes);
-                            
-                                        // Llamar a las funciones para borrar elementos y regresar
-                                        //borrarElementos();
-                                        //regresar();
-                                    })
-                                    .catch((error) => {
-                                        console.error("Error al enviar los datos a la hoja de cálculo", error);
-                                    });
-                            
-                                timer = setTimeout(activarBoton, tiempoEspera);
+                                const horasnum = ahora.getHours(); // Esto obtiene la hora local automáticamente y como número
+                                console.log(horasnum);
+
+
+                                if (horasnum >= 5 && horasnum < 22) {
+                                    alert("Opción válida solo de 10 pm. a 5 pm");
+                                } else {
+                                    temporizadortiempo ()
+
+                                    const qrDataResidentes = {
+                                        Tipo: "QRResidente",
+                                        domicilio: propietario,
+                                        Casa: domicilio,
+                                        Fecha: fechaHoraFormateada,
+                                        ID: idUnicoRes,
+                                    };
+                                
+                                    const datos = {
+                                        propietario: clientecod,
+                                        domicilio: domiciliocod,
+                                        fecha: fechaHoraFormateada,
+                                        fechaHoraRegistro: fechaHoraFormateada,
+                                        idunico: idUnicoRes,
+                                    };
+                                
+                                    const url = `https://sheet.best/api/sheets/${sheetID}/tabs/qrresidentes${privada}`;
+                                
+                                    const opciones = {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json"
+                                        },
+                                        body: JSON.stringify(datos)
+                                    };
+                                
+                                    // Enviar los datos a la hoja de cálculo
+                                    fetch(url, opciones)
+                                        .then((response) => response.json())
+                                        .then((data) => {
+                                            // Alerta de éxito después de enviar los datos
+                                            // Generar el contenido para el QR
+                                            const qrContentRes = JSON.stringify(qrDataResidentes);
+                                
+                                            // Obtener el contenedor donde se desea agregar el código QR
+                                            const contenedorQR = document.getElementById('qrElementResidentes');
+                                
+                                            // Limpiar el contenido anterior del contenedor
+                                            contenedorQR.innerHTML = '';
+                                
+                                            // Generar el código QR y mostrarlo en la página
+                                            new QRCode(contenedorQR, qrContentRes);
+                                
+                                            // Llamar a las funciones para borrar elementos y regresar
+                                            //borrarElementos();
+                                            //regresar();
+                                        })
+                                        .catch((error) => {
+                                            console.error("Error al enviar los datos a la hoja de cálculo", error);
+                                        });
+                                
+                                    timer = setTimeout(activarBoton, tiempoEspera);
+                                }
                             }
                             
-
-
-
-
-
-                            
-
-
-
-
                             function confirmacionvyp() {
                                 if (boton2.disabled) {
                                     return; // Evitar ejecutar la función si ya está en curso
@@ -1847,44 +1847,56 @@ function validarNumero(input) {
     input.value = input.value.replace(/\D/g, ''); // Eliminar caracteres que no sean dígitos
 }
 
-function mostrarDivSiEsHoraValida() {
-    const ahora = new Date();
-    const horas = ahora.getHours();
-    
-    // Verifica si la hora actual está entre las 11 PM y las 5 AM
-    if (horas >= 23 || horas < 5) {
-        document.getElementById('qrResdidentes').style.display = 'block';
-    } else {
-        document.getElementById('qrResdidentes').style.display = 'none';
-    }
-}
+
+let intervalo; // Declarar intervalo en un ámbito más amplio
 
 function iniciarTemporizador(duracion, display) {
-    var timer = duracion, minutos, segundos;
-    var interval = setInterval(function () {
-        minutos = parseInt(timer / 60, 10);
-        segundos = parseInt(timer % 60, 10);
+    var tiempoFinal = Date.now() + duracion * 1000; // Calcula la hora de finalización
+    localStorage.setItem('tiempoFinal', tiempoFinal); // Guarda la hora de finalización en localStorage
 
-        minutos = minutos < 10 ? "0" + minutos : minutos;
-        segundos = segundos < 10 ? "0" + segundos : segundos;
+    clearInterval(intervalo); // Limpia cualquier intervalo existente
 
-        display.textContent = minutos + ":" + segundos;
+    intervalo = setInterval(function () {
+        var ahora = Date.now();
+        var tiempoRestante = tiempoFinal - ahora;
 
-        if (--timer < 0) {
-            clearInterval(interval);
-            display.textContent = "EXPIRED";
+        if (tiempoRestante <= 0) {
+            clearInterval(intervalo);
+            display.textContent = "EXPIRADO";
             display.classList.add('expired');
             document.getElementById('qrElementResidentes').innerHTML = ''; // Borra el contenido del QR
+        } else {
+            var minutos = parseInt(tiempoRestante / 60000, 10);
+            var segundos = parseInt((tiempoRestante % 60000) / 1000, 10);
+
+            minutos = minutos < 10 ? "0" + minutos : minutos;
+            segundos = segundos < 10 ? "0" + segundos : segundos;
+
+            display.textContent = minutos + ":" + segundos;
         }
     }, 1000);
 }
 
-document.getElementById('generarqrdinamico').addEventListener('click', function () {
+// Recupera el temporizador si la página se recarga
+window.onload = function() {
+    var tiempoFinal = localStorage.getItem('tiempoFinal');
+    if (tiempoFinal) {
+        var tiempoRestante = (tiempoFinal - Date.now()) / 1000;
+        if (tiempoRestante > 0) {
+            iniciarTemporizador(tiempoRestante, document.querySelector('#display'));
+        } else {
+            document.querySelector('#display').textContent = "EXPIRADO";
+            document.querySelector('#display').classList.add('expired');
+            document.getElementById('qrElementResidentes').innerHTML = ''; // Borra el contenido del QR
+        }
+    }
+};
+
+function temporizadortiempo () {
     var duracion = 120 * 60; // Duración en segundos (120 minutos)
     var display = document.getElementById('temporizador');
     iniciarTemporizador(duracion, display);
-});
-
+};
 
 
 document.getElementById("downloadQrButton").addEventListener("click", async function() {
@@ -1989,5 +2001,5 @@ async function shortenUrl(url) {
 }
 
 
-// Ejecuta la función al cargar la página
-window.onload = mostrarDivSiEsHoraValida;
+
+
